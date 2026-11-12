@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest Guidebook — Issue 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Beon';src:url('fonts/beon.otf') format('opentype');font-display:swap}
+:root{
+  --ink:#1A1A1A; --ink2:#242424; --bone:#F3F1EC; --stone:#E6E3DC; --grey:#8C8A85; --line:rgba(26,26,26,.16); --line-d:rgba(243,241,236,.16);
+  --lime:#BEFF00;
+  --display:'Beon','Inter',sans-serif;
+  --serif:'Newsreader',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.61,.12,1);
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bone);color:var(--ink);font-family:var(--serif);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--lime);color:var(--ink)}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--pad)}
+.col{max-width:640px;margin:0 auto}
+.disp{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:.95}
+.lbl{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.muted{color:var(--grey)}
+.g{display:inline-block;width:1em;height:1em;vertical-align:-.12em;fill:currentColor}
+.g.s{fill:none;stroke:currentColor;stroke-width:1.2}
+.dark{background:var(--ink);color:var(--bone)}
+.dark .muted{color:#8f8d88}
+.rule{height:1px;background:var(--line);border:0}
+.dark .rule{background:var(--line-d)}
+.fade{opacity:0;transform:translateY(24px);transition:opacity 1.4s var(--ease),transform 1.4s var(--ease)}
+.fade.in{opacity:1;transform:none}
+.link{position:relative;display:inline-flex;align-items:center;gap:.6em}
+.link::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform-origin:left;transform:scaleX(.25);transition:transform .6s var(--ease)}
+.link:hover::after{transform:scaleX(1)}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:var(--display);font-size:16px;letter-spacing:.02em;line-height:1;padding:14px 26px 13px 20px;border:1px solid currentColor;border-radius:999px;transition:background .6s var(--ease),color .6s var(--ease),border-color .6s;isolation:isolate}
+.btn::before{content:"";width:11px;height:11px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform 1.1s var(--ease),background .5s}
+.btn::after{content:"";position:absolute;inset:-7px -12px;border:1px solid var(--lime);border-radius:50%;transform:rotate(-5deg) scale(.9);opacity:0;transition:opacity .6s,transform 1s var(--ease);pointer-events:none;z-index:-1}
+.btn:hover{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+.btn:hover::before{transform:rotate(180deg);background:var(--lime)}
+.btn:hover::after{opacity:1;transform:rotate(-5deg) scale(1)}
+.dark .btn:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.dark .btn:hover::before{background:var(--ink)}
+.btn.on,.btn.on:hover{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.btn.on::before{background:var(--ink)}
+.btn.quiet{border-color:transparent;padding-left:0}
+.btn.quiet:hover{background:none;color:inherit;border-color:transparent}
+.btn.quiet::after{display:none}
+
+/* nav */
+#progress{position:fixed;top:0;left:0;height:1px;width:0;background:var(--lime);z-index:130}
+nav{position:fixed;top:0;left:0;right:0;z-index:120;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px var(--pad);color:var(--bone);transition:background .6s,color .6s,padding .6s}
+nav.solid{background:rgba(243,241,236,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);padding:14px var(--pad)}
+nav.solid.dk{background:rgba(26,26,26,.9);color:var(--bone)}
+.navl{display:flex;gap:26px}
+.navl a{opacity:.6;transition:opacity .3s;position:relative}
+.navl a:hover,.navl a.active{opacity:1}
+.navl a.active::before{content:"";position:absolute;left:-12px;top:50%;width:4px;height:4px;border-radius:50%;background:var(--lime);transform:translateY(-50%)}
+.logo{font-family:var(--display);font-size:22px;letter-spacing:.32em;padding-left:.32em}
+.passport{justify-self:end;display:flex;gap:14px;align-items:center}
+.passport b{font-family:var(--display);font-weight:400;font-size:15px;letter-spacing:.04em}
+@media(max-width:1060px){.navl{display:none}nav{grid-template-columns:auto 1fr}.passport{justify-self:end}}
+
+/* cover */
+#cover{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--ink);color:var(--bone)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 2.2s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 12s linear}
+.slide.on img{transform:scale(1)}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.28),transparent 22%,transparent 60%,rgba(0,0,0,.55))}
+.cover-in{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 40px}
+.mast{font-family:var(--display);font-size:clamp(96px,19vw,300px);line-height:.8;letter-spacing:.06em;text-align:center;margin-bottom:5vh;opacity:0;animation:mast 2.4s .2s var(--ease) forwards}
+@keyframes mast{from{opacity:0;letter-spacing:.2em}to{opacity:1;letter-spacing:.06em}}
+.cover-foot{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:20px;border-top:1px solid rgba(243,241,236,.35);padding-top:18px}
+.cl{display:none}.cl.on{display:block;animation:fadein 1.2s var(--ease)}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.cl .disp{font-size:clamp(24px,2.4vw,36px);margin:8px 0 6px}
+.cl p{font-style:italic;font-size:17px;opacity:.85}
+.cidx{display:flex;gap:22px}
+.cidx button{opacity:.45;transition:opacity .3s}
+.cidx button.on{opacity:1}
+.cidx button.on::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);margin-right:8px;vertical-align:2px}
+.cover-foot .r{justify-self:end;text-align:right}
+@media(max-width:760px){.cover-foot{grid-template-columns:1fr}.cover-foot .r{justify-self:start;text-align:left}}
+
+/* contents */
+#contents{padding:160px 0 140px}
+.c-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:70px;align-items:end}
+.c-head .disp{font-size:clamp(44px,5vw,76px)}
+.c-head p{font-size:21px;line-height:1.5;max-width:460px;justify-self:end}
+.toc{position:relative}
+.toc a{display:grid;grid-template-columns:80px 1fr auto 60px;gap:24px;align-items:baseline;padding:26px 0;border-top:1px solid var(--line);transition:padding .6s var(--ease)}
+.toc a:last-child{border-bottom:1px solid var(--line)}
+.toc a .n{font-family:var(--display);font-size:15px;color:var(--grey)}
+.toc a .t{font-family:var(--display);font-size:clamp(28px,3.4vw,52px)}
+.toc a .d{font-style:italic;font-size:17px;color:var(--grey)}
+.toc a .p{font-family:var(--sans);font-size:12px;text-align:right;color:var(--grey)}
+.toc a:hover{padding-left:18px}
+.toc a:hover .n{color:var(--ink)}
+.toc-img{position:fixed;width:280px;aspect-ratio:4/5;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(.96);transition:opacity .4s,transform .4s var(--ease);overflow:hidden}
+.toc-img.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.toc-img img{width:100%;height:100%;object-fit:cover}
+@media(max-width:900px){.c-head{grid-template-columns:1fr}.c-head p{justify-self:start}.toc a{grid-template-columns:40px 1fr auto}.toc a .d{display:none}}
+
+/* feature shared */
+.opener{position:relative;height:100vh;min-height:620px;overflow:hidden}
+.opener img{width:100%;height:100%;object-fit:cover}
+.opener .ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),transparent 45%);display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 56px;color:var(--bone)}
+.opener .disp{font-size:clamp(60px,10vw,168px);line-height:.88}
+.opener .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+.standfirst{padding:120px 0 40px}
+.standfirst p.dek{font-size:clamp(24px,2.5vw,34px);line-height:1.35;font-weight:300}
+.credits{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+.dark .credits{border-color:var(--line-d)}
+.credits div span{display:block;margin-bottom:6px}
+.credits div{font-size:15px}
+.note{margin-top:28px;font-family:var(--sans);font-size:12px;line-height:1.6;color:var(--grey);padding-left:14px;border-left:1px solid var(--lime)}
+.chap-h{text-align:center;padding:130px 0 60px}
+.chap-h .lbl{display:block;margin-bottom:22px}
+.chap-h .disp{font-size:clamp(40px,5vw,78px)}
+.chap-h .g{color:var(--lime);font-size:18px;margin-bottom:24px}
+.prose p{font-size:21px;line-height:1.68;margin-bottom:1.25em}
+.prose p.drop::first-letter{font-family:var(--display);float:left;font-size:88px;line-height:.8;padding:8px 14px 0 0}
+.pull{padding:90px 0;text-align:center}
+.pull blockquote{font-family:var(--display);font-size:clamp(30px,3.6vw,54px);line-height:1.15;max-width:980px;margin:0 auto}
+.pull cite{display:block;margin-top:28px;font-style:normal}
+figure{position:relative;overflow:hidden;cursor:zoom-in;background:var(--stone)}
+.dark figure{background:#111}
+figure img{width:100%;height:100%;object-fit:cover;transition:transform 2s var(--ease)}
+figure:hover img{transform:scale(1.025)}
+figcaption{font-family:var(--sans);font-size:12px;line-height:1.5;color:var(--grey);padding-top:12px;display:flex;gap:12px}
+figcaption b{font-weight:500;color:var(--ink)}
+.dark figcaption b{color:var(--bone)}
+.bleed{margin:80px 0}
+.bleed figure{height:min(92vh,980px)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);margin:100px 0;align-items:start}
+.duo .off{margin-top:22vh}
+.duo figure{aspect-ratio:4/5}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:100px 0}
+.trio figure{aspect-ratio:3/4}
+.asym{display:grid;grid-template-columns:5fr 3fr;gap:var(--pad);align-items:end;margin:100px 0}
+.asym figure.a{aspect-ratio:4/5}.asym figure.b{aspect-ratio:3/4}
+.notes{display:grid;grid-template-columns:240px 1fr;gap:40px;padding:50px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:90px 0}
+.dark .notes{border-color:var(--line-d)}
+.notes h4{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1}
+.notes h4 .g{color:var(--lime);display:block;margin-bottom:18px;font-size:16px}
+.notes ol{list-style:none;counter-reset:n;display:grid;grid-template-columns:1fr 1fr;gap:26px 46px}
+.notes li{counter-increment:n;font-size:17px;line-height:1.55}
+.notes li::before{content:counter(n,decimal-leading-zero);display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;color:var(--grey);margin-bottom:8px}
+.notes li b{font-weight:400;font-style:italic}
+.src{font-family:var(--sans);font-size:11px;line-height:1.7;color:var(--grey);margin-top:22px}
+.src a{border-bottom:1px solid currentColor}
+.traits{display:grid;grid-template-columns:repeat(4,1fr);margin:90px 0;border-top:1px solid var(--line)}
+.trait{padding:30px 24px 0 0}
+.trait .disp{font-size:26px;margin:12px 0 12px}
+.trait p{font-size:16px;line-height:1.55;color:#4a4946}
+@media(max-width:900px){.duo,.asym,.notes{grid-template-columns:1fr}.duo .off{margin-top:0}.trio,.traits{grid-template-columns:1fr 1fr}.notes ol{grid-template-columns:1fr}}
+
+/* catalina map */
+.mapwrap{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--pad);align-items:center;margin:100px 0}
+.mapsvg svg{width:100%;height:auto;display:block}
+.stop{cursor:pointer}
+.stop .c{transition:r .4s var(--ease),fill .4s}
+.stop.on .c{fill:var(--lime);r:7}
+.mapinfo .disp{font-size:40px;margin:14px 0 14px}
+.mapinfo p{font-size:19px;line-height:1.55}
+.mapinfo .idx{display:flex;flex-direction:column;gap:2px;margin-top:30px;border-top:1px solid var(--line)}
+.mapinfo .idx button{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:13px;color:var(--grey);transition:color .3s}
+.mapinfo .idx button.on{color:var(--ink)}
+.mapinfo .idx button.on::after{content:"●";color:var(--lime);font-size:9px}
+@media(max-width:900px){.mapwrap{grid-template-columns:1fr}}
+
+/* guide */
+.guide{padding:120px 0}
+.guide-h{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+.guide-h .disp{font-size:clamp(40px,5vw,76px)}
+.guide-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-d)}
+.gcell{padding:30px 28px 10px 0}
+.gcell .disp{font-size:24px;margin:14px 0 16px}
+.gcell ul{list-style:none}
+.gcell li{font-family:var(--sans);font-size:14px;line-height:1.6;color:#c9c6bf;padding:8px 0;border-top:1px solid var(--line-d)}
+.gcell li:first-child{border-top:0;padding-top:0}
+.guide-foot{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;margin-top:56px}
+@media(max-width:1000px){.guide-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.guide-grid{grid-template-columns:1fr}}
+
+/* trillium */
+#trillium .standfirst{padding-top:130px}
+.n-pair{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin:80px 0}
+.n-pair figure.w{aspect-ratio:16/9}.n-pair figure.t{height:100%}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);align-items:center;padding:70px 0;border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);margin:100px 0}
+.kp .kval{font-family:var(--display);font-size:clamp(70px,9vw,140px);line-height:.85}
+.kp .verdict{font-size:22px;line-height:1.45;margin-top:22px;min-height:66px}
+.kp input{-webkit-appearance:none;appearance:none;width:100%;height:1px;background:rgba(243,241,236,.35);margin-top:30px;outline:none}
+.kp input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--lime);cursor:pointer}
+.kp input::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:var(--lime);cursor:pointer}
+.sky{position:relative;aspect-ratio:4/3;background:#0c0c0c;overflow:hidden}
+.sky .band{position:absolute;left:-20%;right:-20%;bottom:28%;height:110%;background:radial-gradient(ellipse at 50% 100%,rgba(190,255,0,.55),rgba(160,60,200,.45) 45%,transparent 70%);filter:blur(18px);transform-origin:bottom;transition:transform 1s var(--ease),opacity 1s}
+.sky .ridge{position:absolute;left:0;right:0;bottom:0;height:34%;background:var(--ink);clip-path:polygon(0 60%,10% 45%,18% 58%,28% 36%,38% 52%,50% 30%,58% 14%,64% 0,70% 16%,78% 40%,88% 46%,100% 34%,100% 100%,0 100%)}
+.sky svg{position:absolute;top:18px;right:18px;width:44px;height:44px;color:var(--lime);opacity:.9}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:60px 0 100px}
+.four figure{aspect-ratio:2/3}
+@media(max-width:900px){.n-pair,.kp{grid-template-columns:1fr}.four{grid-template-columns:1fr 1fr}}
+
+/* silver falls */
+.flip{position:relative;aspect-ratio:16/9;overflow:hidden;cursor:ew-resize;user-select:none;touch-action:none;margin-top:16px}
+.flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.flip .top{clip-path:inset(0 0 0 var(--x,50%))}
+.flip .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:1px;background:var(--bone)}
+.flip .bar::after{content:"";position:absolute;top:50%;left:50%;width:12px;height:12px;border-radius:50%;background:var(--lime);transform:translate(-50%,-50%)}
+.flip .lb{position:absolute;bottom:14px;color:var(--bone)}
+.sf-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:100px 0}
+.sf-pair figure{aspect-ratio:16/10}
+@media(max-width:900px){.sf-pair{grid-template-columns:1fr}}
+
+/* films */
+#films{padding:150px 0}
+.films{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);margin-top:70px}
+.film{display:block}
+.film .fr{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
+.film .fr img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .8s,transform 2s var(--ease)}
+.film:hover .fr img{opacity:1;transform:scale(1.03)}
+.film .fr .play{position:absolute;left:22px;bottom:20px;display:flex;align-items:center;gap:12px;color:var(--bone)}
+.film .fr .play i{width:38px;height:38px;border:1px solid var(--bone);border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;padding-left:2px;transition:background .4s,color .4s,border-color .4s}
+.film:hover .fr .play i{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.film .fx{display:flex;justify-content:space-between;gap:20px;margin-top:20px}
+.film .disp{font-size:clamp(26px,2.6vw,40px)}
+.film p{font-size:17px;line-height:1.5;margin-top:10px;max-width:520px;color:#c9c6bf}
+.film .gr{height:100%;display:grid;place-items:center;color:var(--lime)}
+.film .gr svg{width:34%;height:auto;opacity:.85}
+@media(max-width:900px){.films{grid-template-columns:1fr}}
+
+/* manifesto */
+#manifesto{padding:160px 0}
+.mani{display:grid;grid-template-columns:160px 1fr;gap:40px;padding:56px 0;border-top:1px solid var(--line)}
+.mani h3{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey);line-height:1.6}
+.mani p{font-size:clamp(24px,2.8vw,40px);line-height:1.3}
+.mani p .w{opacity:.14;transition:opacity .5s}
+.mani p .w.on{opacity:1}
+.coda{text-align:center;padding-top:110px}
+.coda .disp{font-size:clamp(46px,7vw,110px);line-height:1.05}
+.coda .g{color:var(--lime);font-size:22px;margin:0 .3em}
+@media(max-width:800px){.mani{grid-template-columns:1fr;gap:14px}}
+
+/* how */
+#how{padding:150px 0}
+.sec-h{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:70px}
+.sec-h .disp{font-size:clamp(44px,5.4vw,84px)}
+.sec-h p{font-size:21px;line-height:1.5;justify-self:end;max-width:480px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.step{padding:34px 28px 34px 0;text-align:left;position:relative;transition:opacity .6s}
+.step .n{font-family:var(--display);font-size:64px;line-height:1;color:var(--grey);transition:color .6s}
+.step.on .n{color:var(--ink)}
+.step.on::before{content:"";position:absolute;top:-1px;left:0;right:28px;height:1px;background:var(--lime)}
+.step .disp{font-size:28px;margin:18px 0 12px}
+.step p{font-size:17px;line-height:1.55}
+.step .ex{font-family:var(--sans);font-size:12px;line-height:1.6;color:var(--grey);margin-top:18px}
+.earn{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);margin-top:90px;padding-top:50px;border-top:1px solid var(--line)}
+.earn ul{list-style:none;columns:2;column-gap:40px}
+.earn li{font-size:17px;line-height:1.5;padding:10px 0;break-inside:avoid;border-bottom:1px solid var(--line)}
+.earn h4{font-family:var(--display);font-weight:400;font-size:26px;margin-bottom:22px}
+.relics{display:flex;flex-wrap:wrap;gap:16px}
+.relic{width:64px;text-align:center;font-family:var(--sans);font-size:9px;line-height:1.3;color:var(--grey);transition:color .6s}
+.relic svg{width:56px;height:56px;display:block;margin:0 auto 8px;color:#c4c1ba;transition:color .6s}
+.relic.got{color:var(--ink)}
+.relic.got svg{color:var(--ink)}
+.relic.got svg .sp{fill:var(--lime)}
+@media(max-width:1000px){.steps{grid-template-columns:1fr 1fr}.earn,.sec-h{grid-template-columns:1fr}.sec-h p{justify-self:start}}
+
+/* also */
+#issue{padding:150px 0;border-top:1px solid var(--line)}
+.also{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.story{padding:34px 34px 40px 0;border-right:1px solid var(--line);cursor:pointer;text-align:left;transition:opacity .6s}
+.story:last-child{border-right:0}
+.story+.story{padding-left:34px}
+.story .disp{font-size:30px;margin:16px 0 14px}
+.story p{font-size:17px;line-height:1.5;color:#4a4946}
+.story .r{margin-top:30px}
+.story.dim{opacity:.3}
+@media(max-width:900px){.also{grid-template-columns:1fr}.story,.story+.story{padding:30px 0;border-right:0;border-bottom:1px solid var(--line)}}
+
+/* path */
+#path{padding:150px 0}
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--pad)}
+.pathcard{text-align:left}
+.pathcard .ph{aspect-ratio:3/4;overflow:hidden;background:var(--stone)}
+.pathcard .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter 1.2s var(--ease),transform 2s var(--ease)}
+.pathcard:hover .ph img{transform:scale(1.03)}
+.pathcard.sel .ph img{filter:none}
+.pathcard .pb{padding-top:20px;display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+.pathcard .disp{font-size:28px}
+.pathcard p{font-size:16px;line-height:1.5;margin-top:10px;color:#4a4946}
+.pathcard .mk{width:9px;height:9px;border-radius:50%;border:1px solid var(--ink);flex:none}
+.pathcard.sel .mk{background:var(--lime);border-color:var(--lime)}
+.path-note{margin-top:40px;font-style:italic;font-size:18px;min-height:28px;text-align:center}
+@media(max-width:900px){.paths{grid-template-columns:1fr}}
+
+/* quests */
+#quests{padding:150px 0}
+.rank{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;margin-bottom:60px}
+.rank .disp{font-size:64px}
+.track{position:relative;height:1px;background:var(--line)}
+.track .fill{position:absolute;left:0;top:0;height:1px;width:0;background:var(--ink);transition:width 1.4s var(--ease)}
+.track .tk{position:absolute;top:14px;transform:translateX(-50%);color:var(--grey)}
+.track .tk::before{content:"";position:absolute;left:50%;top:-18px;width:5px;height:5px;border-radius:50%;background:var(--bone);border:1px solid var(--grey);transform:translateX(-50%)}
+.track .tk.hit{color:var(--ink)}
+.track .tk.hit::before{background:var(--lime);border-color:var(--lime)}
+.rank .now{text-align:right}
+.rank .now .disp{font-size:26px;display:block}
+.filters{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+.filters button{color:var(--grey);transition:color .3s}
+.filters button.on{color:var(--ink)}
+.filters button.on::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);margin-right:8px;vertical-align:2px}
+.qlist{border-top:1px solid var(--ink)}
+.q{border-bottom:1px solid var(--line)}
+.q .row{display:grid;grid-template-columns:44px 1.6fr 1fr 70px 80px 150px;gap:20px;align-items:center;padding:22px 0;cursor:pointer}
+.q .row .n{font-family:var(--sans);font-size:12px;color:var(--grey)}
+.q .row .t{font-family:var(--display);font-size:clamp(20px,1.8vw,28px)}
+.q .row .loc{font-family:var(--sans);font-size:13px;color:var(--grey)}
+.q .row .rt{font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--grey)}
+.q .row .pt{font-family:var(--display);font-size:20px;text-align:right}
+.q .row .st{justify-self:end}
+.q .more .btn{font-size:14px;padding:11px 20px 10px 16px}
+.q .row .st .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:8px;vertical-align:1px;border:1px solid var(--grey)}
+.q.acc .row .st .dot{border-color:var(--ink);background:var(--ink)}
+.q.done .row .st .dot{background:var(--lime);border-color:var(--lime)}
+.q.done .row .t{text-decoration:line-through;text-decoration-thickness:1px}
+.q.match .row .n{color:var(--ink)}
+.q.match .row .n::after{content:" ●";color:var(--lime);font-size:8px;vertical-align:2px}
+.q .more{display:grid;grid-template-columns:44px 1.6fr 1fr;gap:20px;max-height:0;overflow:hidden;transition:max-height .8s var(--ease)}
+.q.open .more{max-height:520px}
+.q .more .img{grid-column:3;aspect-ratio:3/2;overflow:hidden;margin-bottom:28px;background:var(--stone)}
+.q .more .img img{width:100%;height:100%;object-fit:cover}
+.q .more .tx{grid-column:2;padding-bottom:30px}
+.q .more p{font-size:18px;line-height:1.55;margin-bottom:20px}
+.q .more .acts{display:flex;gap:12px;flex-wrap:wrap}
+.qsteps{list-style:none;margin:6px 0 22px;border-top:1px solid var(--line)}
+.qsteps label{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-family:var(--sans);font-size:14px;cursor:pointer}
+.qsteps input{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid var(--ink);border-radius:50%;flex:none;cursor:pointer;transition:background .3s}
+.qsteps input:checked{background:var(--lime);border-color:var(--lime)}
+.qsteps input:checked+span{color:var(--grey);text-decoration:line-through}
+@media(max-width:900px){.q .row{grid-template-columns:30px 1fr auto}.q .row .loc,.q .row .rt,.q .row .pt{display:none}.q .more{grid-template-columns:1fr}.q .more .img,.q .more .tx{grid-column:1}.rank{grid-template-columns:1fr}.rank .now{text-align:left}}
+
+/* compass */
+#compass{padding:150px 0}
+.compass-wrap{display:grid;grid-template-columns:1fr 340px;gap:var(--pad);align-items:center}
+.mapbox{position:relative}
+.mapbox>svg:not(.rose):not(.rings){width:100%;height:auto;display:block;position:relative}
+.pin{cursor:pointer}
+.pin .core{fill:var(--bone);transition:fill .4s,r .4s var(--ease)}
+.pin.active .core{fill:var(--lime);r:6}
+.pin .halo{fill:none;stroke:var(--lime);opacity:0;transform-box:fill-box;transform-origin:center}
+.pin.active .halo{opacity:1;animation:halo 2.6s infinite}
+@keyframes halo{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+.pin text{font-family:var(--sans);font-size:12px;fill:#8f8d88;transition:fill .3s}
+.pin.active text,.pin:hover text{fill:var(--bone)}
+.mapside .disp{font-size:44px;margin:14px 0 8px}
+.mapside p{font-size:18px;line-height:1.55;margin:18px 0}
+.mapside .mq{border-top:1px solid var(--line-d);padding-top:18px}
+.mapside .mq .disp{font-size:22px;margin:8px 0 14px}
+.mapbox svg.rose{position:absolute;right:0;bottom:0;width:56px;height:56px;cursor:pointer;color:var(--lime);transition:transform 1.2s var(--ease)}
+@media(max-width:1000px){.compass-wrap{grid-template-columns:1fr}}
+
+/* print */
+#print{padding:150px 0}
+.print-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);align-items:center}
+.mag{position:relative;max-width:440px;margin:0 auto;width:100%}
+.mag .page{position:relative;box-shadow:0 40px 80px -40px rgba(0,0,0,.45)}
+.mag .page img{width:100%}
+.qr{position:absolute;left:7%;bottom:6%;width:64px;height:64px;background:#fff;padding:5px}
+.qr svg{width:100%;height:100%;display:block}
+.scanline{position:absolute;left:-4px;right:-4px;height:1px;background:var(--lime);top:0;opacity:0}
+.scanning .scanline{opacity:1;animation:scan 1.1s ease-in-out 2}
+@keyframes scan{0%{top:0}50%{top:100%}100%{top:0}}
+.ar{position:absolute;font-family:var(--sans);font-size:11px;letter-spacing:.06em;color:var(--bone);display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(6px);transition:all 1s var(--ease)}
+.ar::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime)}
+.unlocked .ar{opacity:1;transform:none}
+.unlocked .ar:nth-of-type(2){transition-delay:.25s}.unlocked .ar:nth-of-type(3){transition-delay:.5s}
+.pillars{margin:40px 0;border-top:1px solid var(--line)}
+.pillar{display:grid;grid-template-columns:90px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.pillar b{font-family:var(--display);font-weight:400;font-size:20px}
+.pillar p{font-size:17px;line-height:1.5}
+.unlock{max-height:0;overflow:hidden;transition:max-height 1.2s var(--ease)}
+.unlock.open{max-height:900px}
+.recipe{padding-top:40px}
+.recipe .disp{font-size:32px;margin:12px 0 18px}
+.recipe ol{padding-left:20px;font-size:17px;line-height:1.7}
+@media(max-width:900px){.print-grid{grid-template-columns:1fr}}
+
+/* join + footer */
+#join{padding:170px 0;text-align:center}
+#join .disp{font-size:clamp(54px,8vw,128px)}
+.joinform{display:flex;max-width:520px;margin:56px auto 0;border-bottom:1px solid var(--bone)}
+.joinform input{flex:1;background:none;border:0;color:var(--bone);font-family:var(--serif);font-size:20px;font-style:italic;padding:14px 0;outline:none;min-width:0}
+.joinform input::placeholder{color:#8f8d88}
+.joinform button{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:0 4px}
+.join-msg{margin-top:20px;font-family:var(--sans);font-size:12px;color:#8f8d88;min-height:20px}
+footer{padding:70px 0 40px;border-top:1px solid var(--line-d)}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+.foot .logo{font-size:40px}
+.foot h6{margin-bottom:16px;color:#8f8d88}
+.foot a{display:block;font-size:17px;margin-bottom:8px;opacity:.8;transition:opacity .3s}
+.foot a:hover{opacity:1}
+.fine{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:50px;padding-top:22px;border-top:1px solid var(--line-d);color:#8f8d88}
+@media(max-width:800px){.foot{grid-template-columns:1fr 1fr}}
+
+/* overlays */
+#lb,#reader{position:fixed;inset:0;z-index:300;visibility:hidden;pointer-events:none}
+#lb.open,#reader.open{visibility:visible;pointer-events:auto}
+#lb{background:rgba(20,20,20,.97);opacity:0;transition:opacity .6s}
+#lb.open{opacity:1}
+#lb .stage{position:absolute;inset:70px 90px 100px;display:flex;align-items:center;justify-content:center}
+#lb img{max-width:100%;max-height:100%;object-fit:contain}
+#lb .cap{position:absolute;left:90px;right:90px;bottom:36px;display:flex;justify-content:space-between;color:var(--bone)}
+#lb .cap span:first-child{font-style:italic;font-size:17px;font-family:var(--serif);letter-spacing:0;text-transform:none;font-weight:300}
+#lb .nv{position:absolute;top:50%;transform:translateY(-50%);color:var(--bone);font-size:22px;padding:20px}
+#lb .prev{left:20px}#lb .next{right:20px}
+.x{position:absolute;top:22px;right:28px;color:inherit;z-index:3}
+#reader .bd{position:absolute;inset:0;background:rgba(20,20,20,.5);opacity:0;transition:opacity .6s}
+#reader.open .bd{opacity:1}
+#reader .sheet{position:absolute;top:0;right:0;bottom:0;width:min(760px,100%);background:var(--bone);transform:translateX(100%);transition:transform .9s var(--ease);overflow-y:auto;padding:90px clamp(28px,6vw,80px)}
+#reader.open .sheet{transform:none}
+.sheet .disp{font-size:clamp(44px,6vw,72px);margin:16px 0 18px}
+.sheet .dek{font-style:italic;font-size:22px;line-height:1.4;margin-bottom:40px}
+#toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,40px);opacity:0;visibility:hidden;background:var(--ink);color:var(--bone);padding:14px 22px;z-index:400;transition:all .6s var(--ease);display:flex;gap:12px;align-items:center}
+#toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+#toast i{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+/* sound */
+.snd{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;opacity:.75;transition:opacity .3s}
+.snd:hover,.snd.on{opacity:1}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:11px}
+.eq i{width:2px;height:2px;background:currentColor;transition:height .3s}
+.snd.on .eq i{background:var(--lime);animation:eq 1.1s ease-in-out infinite}
+.snd.on .eq i:nth-child(2){animation-delay:-.3s}.snd.on .eq i:nth-child(3){animation-delay:-.6s}.snd.on .eq i:nth-child(4){animation-delay:-.9s}
+@keyframes eq{0%,100%{height:2px}50%{height:11px}}
+#scene{position:fixed;right:18px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;z-index:240;font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85;mix-blend-mode:difference;pointer-events:none;opacity:0;transition:opacity .8s}
+#scene.on{opacity:1}
+#scene b{font-weight:500;color:#cfcfcf}
+.enter{display:flex;gap:26px;justify-content:flex-end;margin-top:12px}
+/* oregon */
+#oregon{padding:0 0 150px}
+.or-grid{display:grid;grid-template-columns:5fr 4fr;gap:var(--pad);align-items:start;margin:100px 0}
+.or-grid figure.a{aspect-ratio:16/10}.or-grid figure.b{aspect-ratio:3/4}
+.or-grid .off{margin-top:18vh}
+.setlist{margin-top:40px;border-top:1px solid var(--line)}
+.setlist div{display:grid;grid-template-columns:70px 1fr auto;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;align-items:baseline}
+.setlist span:first-child,.setlist span:last-child{font-family:var(--sans);font-size:12px;color:var(--grey)}
+@media(max-width:900px){.or-grid{grid-template-columns:1fr}.or-grid .off{margin-top:0}}
+/* gear */
+#gear{padding:150px 0}
+.looks{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:40px}
+.looks button{color:var(--grey);transition:color .3s}
+.looks button.on{color:var(--ink)}
+.looks button.on::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--lime);margin-right:8px;vertical-align:2px}
+.gear-wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--pad);align-items:start}
+.gear-fig{position:relative;overflow:hidden;background:var(--stone)}
+.gear-fig img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s,filter .7s}
+.gear-fig.dim img{filter:brightness(.55) grayscale(.4)}
+.hs{position:absolute;width:30px;height:30px;transform:translate(-50%,-50%);display:grid;place-items:center;cursor:pointer}
+.hs i{width:9px;height:9px;border-radius:50%;background:var(--bone);box-shadow:0 0 0 1px rgba(0,0,0,.25);transition:transform .5s var(--ease),background .4s}
+.hs::after{content:"";position:absolute;inset:0;border:1px solid var(--bone);border-radius:50%;opacity:.7;animation:hs 2.4s infinite}
+@keyframes hs{from{transform:scale(.4);opacity:.9}to{transform:scale(1.4);opacity:0}}
+.hs b{position:absolute;left:24px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--bone);opacity:0;transition:opacity .4s}
+.hs.on i{background:var(--lime);transform:scale(1.4)}
+.hs.on b{opacity:1}
+.gear-list{border-top:1px solid var(--ink)}
+.gi{display:grid;grid-template-columns:36px 1fr auto;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:padding .5s var(--ease)}
+.gi .n{font-family:var(--sans);font-size:12px;color:var(--grey);padding-top:5px}
+.gi .t{font-family:var(--display);font-size:24px;line-height:1.1}
+.gi .k{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);padding-top:7px;text-align:right}
+.gi .d{grid-column:2/4;max-height:0;overflow:hidden;transition:max-height .7s var(--ease);font-size:17px;line-height:1.55}
+.gi .d p{padding-top:10px}
+.gi .d dl{display:grid;grid-template-columns:110px 1fr;gap:6px 14px;margin-top:14px;font-family:var(--sans);font-size:12px}
+.gi .d dt{color:var(--grey);letter-spacing:.12em;text-transform:uppercase;font-size:10px;padding-top:2px}
+.gi.on{padding-left:12px}
+.gi.on .n{color:var(--ink)}
+.gi.on .n::after{content:" ●";color:var(--lime);font-size:8px;vertical-align:2px}
+.gi.on .d{max-height:320px}
+.gear-note{margin-top:22px;font-family:var(--sans);font-size:12px;color:var(--grey);line-height:1.6}
+@media(max-width:900px){.gear-wrap{grid-template-columns:1fr}}
+/* cartographer layer */
+.topo{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#cover .topo{z-index:2;opacity:.55;mix-blend-mode:screen}
+.lens{position:absolute;inset:0;z-index:2;pointer-events:none;clip-path:circle(0px at 50% 50%);transition:clip-path .5s var(--ease)}
+.lens img{width:100%;height:100%;object-fit:cover}
+.lens-ring{position:absolute;z-index:3;width:var(--lr,0px);height:var(--lr,0px);border:1px solid rgba(243,241,236,.7);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:width .5s var(--ease),height .5s var(--ease)}
+.lens-ring::after{content:attr(data-l);position:absolute;left:100%;top:50%;margin-left:12px;white-space:nowrap;font-family:var(--sans);font-size:10px;letter-spacing:.16em;color:var(--bone)}
+.hair{position:fixed;pointer-events:none;z-index:250;background:rgba(127,127,127,.35);mix-blend-mode:difference;opacity:0;transition:opacity .4s}
+.hair.h{left:0;right:0;height:1px}.hair.v{top:0;bottom:0;width:1px}
+body.cart .hair{opacity:1}
+#hud{position:fixed;left:18px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:240;font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8C8A85;display:flex;gap:18px;pointer-events:none;mix-blend-mode:difference}
+#hud b{font-weight:500;color:#cfcfcf}
+.coord{position:absolute;font-family:var(--sans);font-size:10px;letter-spacing:.16em;color:currentColor;opacity:.7}
+.scalebar{display:flex;align-items:center;gap:10px}
+.scalebar i{display:block;width:80px;height:5px;border:1px solid currentColor;border-top:0;background:linear-gradient(90deg,currentColor 0 25%,transparent 25% 50%,currentColor 50% 75%,transparent 75%) bottom/100% 1px no-repeat}
+#contents{position:relative;overflow:hidden}
+#contents .topo{opacity:.35}
+#contents .wrap{position:relative}
+.radar{position:absolute;inset:0;pointer-events:none;border-radius:0;background:conic-gradient(from var(--a,0deg) at var(--rx,87%) var(--ry,85%),rgba(190,255,0,.16),transparent 18%,transparent);mask:radial-gradient(circle at var(--rx,87%) var(--ry,85%),#000 0,#000 70%,transparent 72%);-webkit-mask:radial-gradient(circle at var(--rx,87%) var(--ry,85%),#000 0,#000 70%,transparent 72%)}
+.rings{position:absolute;inset:0;pointer-events:none}
+.pin.ping .core{fill:var(--lime)}
+.opener .coord-row{position:absolute;top:96px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;color:var(--bone);font-family:var(--sans);font-size:10px;letter-spacing:.16em;opacity:.8}
+@media(hover:none){.hair,.lens,.lens-ring{display:none}}
+/* embedded in the game */
+.emb nav,.emb #cover,.emb #hud,.emb #scene,.emb .hair,.emb #path,.emb #quests,.emb #compass,.emb #join,.emb footer,.emb #progress{display:none!important}
+.emb #contents{padding-top:110px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.fade{opacity:1;transform:none}.mast{opacity:1}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- glyph family (from the Quest gfx sheet) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 100 100"><path d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z"/></symbol>
+  <symbol id="orbit" viewBox="0 0 120 60"><ellipse cx="58" cy="32" rx="54" ry="18" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="62" cy="30" rx="50" ry="14" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="sp" d="M92 2c1 8 4 11 12 12-8 1-11 4-12 12-1-8-4-11-12-12 8-1 11-4 12-12Z" fill="currentColor"/></symbol>
+  <symbol id="globe" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="50" cy="50" r="46"/><ellipse cx="50" cy="50" rx="22" ry="46"/><ellipse cx="50" cy="50" rx="38" ry="46"/><path d="M50 4v92M6 35h88M6 65h88M4 50h92"/></g></symbol>
+  <symbol id="atom" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="50" cy="50" rx="46" ry="16"/><ellipse cx="50" cy="50" rx="46" ry="16" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="46" ry="16" transform="rotate(-60 50 50)"/></g></symbol>
+</svg>
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="navl lbl">
+    <a href="#catalina" data-go="catalina">Catalina</a>
+    <a href="#trillium" data-go="trillium">Trillium</a>
+    <a href="#silverfalls" data-go="silverfalls">Falls</a>
+    <a href="#oregon" data-go="oregon">Oregon</a>
+    <a href="#gear" data-go="gear">Gear</a>
+    <a href="#quests" data-go="quests">Board</a>
+  </div>
+  <a class="logo" href="#cover" data-go="cover">QUEST</a>
+  <div class="passport lbl">
+        <button class="snd" id="sndBtn" aria-pressed="false" title="Soundscape"><span class="eq"><i></i><i></i><i></i><i></i></span><span id="sndLbl">Sound</span></button>
+    <a href="#quests" data-go="quests" title="Your Quest passport" style="margin-left:22px"><b id="navPts">0</b> pts · <span id="navRank">Rookie</span></a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section id="cover">
+  <div class="slide on" data-s="0"><img src="img/leap.jpg" alt="A diver leaps from the bow of the sailboat Callisto with a speargun, off Catalina Island"></div>
+  <div class="slide" data-s="1"><img src="img/aurora-hood.jpg" alt="Aurora in magenta and green over the treeline near Mt. Hood"></div>
+  <div class="slide" data-s="2"><img src="img/sf-overhang.jpg" alt="A figure stands under the mossy basalt overhang beside South Falls" style="object-position:70% 50%"></div>
+  <div class="lens" id="lens"><img id="lensImg" src="img/aurora-ridge.jpg" alt=""></div>
+  <div class="lens-ring" id="lensRing" data-l="ANOTHER LATITUDE"></div>
+  <canvas class="topo" data-topo="cover"></canvas>
+  <div class="cover-in">
+    <h1 class="mast" aria-label="Quest">QUEST</h1>
+    <div class="cover-foot">
+      <div>
+        <div class="cl on" data-s="0"><span class="lbl">Cover story</span><div class="disp">The Catalina Quest</div><p>Life aboard the Callisto.</p></div>
+        <div class="cl" data-s="1"><span class="lbl">Cover story</span><div class="disp">Chasing Light</div><p>Magenta over Mt. Hood.</p></div>
+        <div class="cl" data-s="2"><span class="lbl">Feature</span><div class="disp">Offseason at Silver Falls</div><p>Play teaches what rest cannot.</p></div>
+      </div>
+      <div class="cidx lbl"><button class="on" data-cover="0">01</button><button data-cover="1">02</button><button data-cover="2">03</button></div>
+      <div class="r lbl"><span class="scalebar" style="justify-content:flex-end;margin-bottom:10px"><i></i>20 mi</span>Issue 01 · Winter 2026<div class="enter"><button class="link lbl" id="enterSound">Enter with sound</button><a class="link" href="#contents" data-go="contents" style="opacity:.7">In silence</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENTS -->
+<section id="contents">
+  <canvas class="topo" data-topo="ink"></canvas>
+  <div class="wrap">
+    <div class="c-head fade"><h2 class="disp">Contents</h2><p>A field guide to the extraordinary. Each story ends with a quest: something you can go and do.</p></div>
+    <div class="toc fade" id="toc">
+      <a href="#catalina" data-go="catalina" data-img="img/callisto.jpg"><span class="n">01</span><span class="t">The Catalina Quest</span><span class="d">Sail, spear, island</span><span class="p">p. 12</span></a>
+      <a href="#trillium" data-go="trillium" data-img="img/aurora-ridge.jpg"><span class="n">02</span><span class="t">Chasing Light</span><span class="d">Aurora at Trillium Lake</span><span class="p">p. 38</span></a>
+      <a href="#silverfalls" data-go="silverfalls" data-img="img/sf-duo.jpg"><span class="n">03</span><span class="t">Offseason at Silver Falls</span><span class="d">Play as recovery</span><span class="p">p. 54</span></a>
+      <a href="#oregon" data-go="oregon" data-img="img/oregon-field.jpg"><span class="n">04</span><span class="t">Behind the Culture</span><span class="d">Soundcheck at Autzen</span><span class="p">p. 62</span></a>
+      <a href="#films" data-go="films" data-img="img/sf-portrait.jpg"><span class="n">05</span><span class="t">Films</span><span class="d">Silver Falls · Oregon</span><span class="p">p. 70</span></a>
+      <a href="#gear" data-go="gear" data-img="img/sf-cafe-2.jpg"><span class="n">06</span><span class="t">The Kit</span><span class="d">Garments and accessories</span><span class="p">p. 74</span></a>
+      <a href="#manifesto" data-go="manifesto" data-img="img/bow-dusk.jpg"><span class="n">07</span><span class="t">Manifesto</span><span class="d">Six things we believe</span><span class="p">p. 80</span></a>
+      <a href="#how" data-go="how" data-img="img/spear-ready.jpg"><span class="n">08</span><span class="t">What is a Quest</span><span class="d">Select, complete, share, earn</span><span class="p">p. 84</span></a>
+    </div>
+  </div>
+  <div class="toc-img" id="tocImg"><img alt=""></div>
+</section>
+
+<!-- CATALINA -->
+<section id="catalina">
+  <div class="opener"><div class="coord-row" style="z-index:2"><span>33.3879° N  118.4163° W</span><span>ELEV 0 FT · SAN PEDRO CHANNEL</span></div><img src="img/callisto.jpg" alt="The sailboat Callisto at anchor in deep blue water, two crew on deck"><div class="ov"><div class="meta lbl"><span>01 — Cover story</span><span>Santa Catalina Island, California</span></div><h2 class="disp">The Catalina<br>Quest</h2></div></div>
+  <div class="wrap">
+    <div class="standfirst col fade">
+      <p class="dek">Twenty-odd miles off Los Angeles, a crew of athletes trade the pitch for the Pacific: a classic sloop, a speargun, a ridgeline, and a cove with nobody in it.</p>
+      <div class="credits"><div><span class="lbl muted">Featuring</span>Elizabeth Eddy, LINQ athlete ambassador</div><div><span class="lbl muted">Photography</span>LINQ</div><div><span class="lbl muted">Reading</span>12 minutes</div></div>
+      <div class="note">Working draft, structured to follow the 12.14 editorial notes. Quotes marked “suggested” are placeholders until the athletes confirm them.</div>
+    </div>
+
+    <div class="chap-h fade" id="c1"><svg class="g"><use href="#spark"/></svg><span class="lbl muted">I</span><h3 class="disp">The crossing</h3></div>
+    <div class="col prose fade">
+      <p class="drop">The season ends the way it always does: floodlights, noise, a last whistle. Two days later the same people are standing on a dock with dry bags, and the only sound is halyards slapping a mast.</p>
+      <p>Catalina sits about twenty miles off the coast, close enough to see on a clear day and far enough that most Angelenos never go. That gap is the point. A quest starts where convenience stops.</p>
+      <p>The crossing takes most of a morning under sail. Nobody checks a phone. Somebody trims, somebody steers, somebody makes coffee in a galley the size of a closet. By the time the island’s brown ridges sharpen into canyons, the crew has already sorted itself into a team.</p>
+    </div>
+    <div class="mapwrap fade">
+      <div class="mapsvg" id="catmap"></div>
+      <div class="mapinfo" id="catinfo"></div>
+    </div>
+
+    <div class="chap-h fade" id="c2"><svg class="g"><use href="#spark"/></svg><span class="lbl muted">II</span><h3 class="disp">Life aboard the Callisto</h3></div>
+  </div>
+  <div class="bleed fade"><figure data-lb="cat" data-cap="The leap. Callisto, off Catalina. Shot on film."><img src="img/leap.jpg" alt="A diver leaps from the bow with a speargun" loading="lazy"></figure></div>
+  <div class="wrap">
+    <div class="col prose fade">
+      <p class="drop">Spearfishing is the quietest sport in the world. You breathe up on the surface, fold at the waist and sink into the kelp, and then you wait, lungs burning, gun still, for a fish to decide you’re part of the reef.</p>
+      <p>Athletes take to it fast, because it rewards the same things a match does: patience until the moment arrives, then total precision. Miss and you surface with nothing. Rush, and the fish is gone before you’re in range.</p>
+      <p>By late afternoon the dinghy had a catch in it. That night it became Kolten’s ceviche, eaten on deck with the anchor light on and the island going purple behind us.</p>
+    </div>
+    <div class="duo fade">
+      <div><figure data-lb="cat" data-cap="Geared up, waiting for slack water."><img src="img/spear-ready.jpg" alt="A diver in a black wetsuit holding a speargun on deck" loading="lazy"></figure><figcaption><b>01</b>Geared up, waiting for slack water.</figcaption></div>
+      <div class="off"><figure data-lb="cat" data-cap="Cleaning the catch. Tonight’s ceviche."><img src="img/catch.jpg" alt="A diver cleaning a fish in a small blue dinghy" loading="lazy"></figure><figcaption><b>02</b>Cleaning the catch. Tonight’s ceviche.</figcaption></div>
+    </div>
+    <div class="pull fade"><blockquote>“Spearfishing taught me patience, just like waiting for the perfect pass in a match.”</blockquote><cite class="lbl muted">Suggested quote · confirm with the athlete</cite></div>
+    <div class="trio fade">
+      <div><figure data-lb="cat" data-cap="The magenta wetsuit, surfacing off the stern."><img src="img/swim-wave.jpg" alt="A swimmer in a wetsuit waving from the water" loading="lazy"></figure><figcaption><b>03</b>Surfacing off the stern.</figcaption></div>
+      <div><figure data-lb="cat" data-cap="Below deck, morning light."><img src="img/cabin.jpg" alt="Sunlit wooden cabin interior of the sailboat" loading="lazy"></figure><figcaption><b>04</b>Below deck.</figcaption></div>
+      <div><figure data-lb="cat" data-cap="Dusk from the bow."><img src="img/bow-dusk.jpg" alt="View from the bow at dusk" loading="lazy"></figure><figcaption><b>05</b>Dusk from the bow.</figcaption></div>
+    </div>
+    <div class="notes fade">
+      <h4><svg class="g"><use href="#spark"/></svg>Spearfishing, properly</h4>
+      <div><ol>
+        <li><b>Get licensed.</b> Anyone 16 or older needs a California sport fishing licence. Check species, sizes and seasons first.</li>
+        <li><b>Know the no-take zones.</b> Casino Point, Lover’s Cove, Blue Cavern Onshore and Long Point are no-take. Others allow only some species.</li>
+        <li><b>Never dive alone.</b> One up, one down. Your buddy watches every dive.</li>
+        <li><b>Fly a flag.</b> Tow a dive float so boats know you’re there.</li>
+      </ol><div class="src">Sources: <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Casino-Point" target="_blank" rel="noopener">CDFW — Casino Point SMCA</a> · <a href="https://www.lovecatalina.com" target="_blank" rel="noopener">Catalina MPA guide</a></div></div>
+    </div>
+
+    <div class="chap-h fade" id="c3"><svg class="g"><use href="#spark"/></svg><span class="lbl muted">III</span><h3 class="disp">The island</h3></div>
+  </div>
+  <div class="bleed fade"><figure data-lb="cat" data-cap="The anchorage in late light."><img src="img/cove.jpg" alt="Boats moored in a calm cove below brown hills" loading="lazy"></figure></div>
+  <div class="wrap">
+    <div class="col prose fade">
+      <p class="drop">On land, Catalina is steeper than it looks from the water. The interior is wild: bison country, fox country, and some of the most demanding trail in Southern California.</p>
+      <p>We hiked until the boats in the cove turned into white dots, then scrambled down to a beach with nobody on it. Fatigue does something useful to a group. Small talk falls away, and the conversation turns to how each of us handles the hard part, on a trail or in a final.</p>
+      <p>That’s what makes the island quest-worthy. It’s close enough to reach in a morning, and wild enough to change how you see home.</p>
+    </div>
+    <div class="asym fade">
+      <div><figure class="a" data-lb="cat" data-cap="The crew, end of the hike."><img src="img/crew.jpg" alt="Six friends standing together on a bluff above the ocean" loading="lazy"></figure><figcaption><b>06</b>The crew.</figcaption></div>
+      <div><figure class="b" data-lb="cat" data-cap="The way to the next beach."><img src="img/rocks.jpg" alt="A hiker crossing rocks toward a quiet beach" loading="lazy"></figure><figcaption><b>07</b>The way to the next beach.</figcaption></div>
+    </div>
+    <div class="traits fade">
+      <div class="trait"><span class="lbl muted">On spearfishing</span><div class="disp">Patience</div><p>Holding still on the bottom until the fish is in range, the same way you wait for the pass to open.</p></div>
+      <div class="trait"><span class="lbl muted">On sailing</span><div class="disp">Teamwork</div><p>A sloop only moves when everyone does their job without being asked twice.</p></div>
+      <div class="trait"><span class="lbl muted">On the ridge</span><div class="disp">Perseverance</div><p>The last climb is where the conditioning pays off, and where the mind gets tested.</p></div>
+      <div class="trait"><span class="lbl muted">On the sea</span><div class="disp">Adaptability</div><p>The wind shifts, the swell builds, the plan changes. You adjust without complaint.</p></div>
+    </div>
+    <div class="col" style="text-align:center;padding:40px 0 120px" id="c4"><span class="lbl muted">IV · Coming next</span><h3 class="disp" style="font-size:34px;margin:16px 0 14px">Back to the Angels</h3><p style="font-style:italic;font-size:18px;color:var(--grey)">The party with the team, the day after the island. This chapter is still being written.</p></div>
+  </div>
+  <div class="guide dark" id="plan">
+    <div class="wrap">
+      <div class="guide-h"><div><span class="lbl muted">The guide</span><h3 class="disp" style="margin-top:18px">Plan your<br>Catalina quest</h3></div><svg style="width:120px;height:60px;color:var(--lime)"><use href="#orbit"/></svg></div>
+      <div class="guide-grid">
+        <div class="gcell"><span class="lbl muted">01</span><div class="disp">Get there</div><ul><li>The Catalina Express ferry runs from Long Beach (about 1 hr), San Pedro (about 1 hr 10 min) and Dana Point (about 1 hr 30 min).</li><li>For Two Harbors, take the ferry from San Pedro.</li><li>Or sail your own boat and book a mooring.</li></ul></div>
+        <div class="gcell"><span class="lbl muted">02</span><div class="disp">Hike</div><ul><li>The Conservancy’s hiking permit is mandatory, and free.</li><li>The Trans-Catalina Trail is 38.5 miles. Most hikers take 2–5 days.</li><li>Cell service is patchy, so carry a satellite messenger.</li></ul></div>
+        <div class="gcell"><span class="lbl muted">03</span><div class="disp">Dive</div><ul><li>Spearfishing needs a California fishing licence.</li><li>Stay out of the no-take areas.</li><li>Never dive alone, and always tow a flag.</li></ul></div>
+        <div class="gcell"><span class="lbl muted">04</span><div class="disp">Stay</div><ul><li>Avalon has restaurants and the Casino.</li><li>Two Harbors is quieter and closer to the trail.</li><li>There are five campgrounds along the trail, all by reservation.</li></ul></div>
+      </div>
+      <div class="guide-foot"><div class="src" style="color:#8f8d88;margin:0">Sources: <a href="https://ww2.aaa.com/tripcanvas/attraction/catalina-express-VA21478" target="_blank" rel="noopener">AAA — Catalina Express</a> · <a href="https://www.lovecatalina.com/island-info/getting-here/" target="_blank" rel="noopener">Love Catalina</a> · <a href="https://catalinaconservancy.org/recreation/trans-catalina-trail/" target="_blank" rel="noopener">Catalina Island Conservancy</a> · <a href="https://wildlife.ca.gov/Conservation/Marine/MPAs/Casino-Point" target="_blank" rel="noopener">CDFW</a>. Checked November 2026.</div><button class="btn" data-qa="q-catalina">Accept the Catalina challenge</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRILLIUM -->
+<section id="trillium" class="dark">
+  <div class="opener"><div class="coord-row" style="z-index:2"><span>45.2694° N  121.7389° W</span><span>ELEV 3,600 FT · MT. HOOD NF</span></div><img src="img/aurora-ridge.jpg" alt="Magenta aurora glowing above a forested ridge"><div class="ov"><div class="meta lbl"><span>02 — Cover story</span><span>Trillium Lake, Mt. Hood, Oregon</span></div><h2 class="disp">Chasing<br>Light</h2></div></div>
+  <div class="wrap">
+    <div class="standfirst col fade">
+      <p class="dek">An hour and a bit from Portland, past Government Camp, the sky over Mt. Hood went magenta. We were there with long exposures and cold hands.</p>
+      <div class="credits"><div><span class="lbl muted">Photography</span>LINQ</div><div><span class="lbl muted">Location</span>Trillium Lake, 3,600 ft</div></div>
+    </div>
+    <div class="col prose fade" style="padding-top:60px">
+      <p class="drop">The alert came at dinner: a geomagnetic storm, strong enough that the aurora might reach Oregon. Forty miles later we were walking out to Trillium Lake in the dark, Mt. Hood a black shape to the north.</p>
+      <p>To the eye it started as a grey smear. Then the camera showed us the truth: a wall of magenta rising behind the trees, with green pooling at the horizon. Thirty seconds later, our eyes caught up.</p>
+      <p>You can’t schedule the lights. What you can control is being ready: tripod packed, batteries warm, forecast refreshed, and somewhere dark enough to see.</p>
+    </div>
+    <div class="n-pair fade">
+      <div><figure class="w" data-lb="night" data-cap="Green low, magenta high. Mt. Hood on the right."><img src="img/aurora-hood.jpg" alt="Aurora in green and magenta above trees and Mt. Hood" loading="lazy" style="object-position:50% 70%"></figure><figcaption><b>01</b>Green low, magenta high.</figcaption></div>
+      <div style="display:flex;flex-direction:column"><figure class="t" style="flex:1" data-lb="night" data-cap="Looking up."><img src="img/night-gaze.jpg" alt="Portrait of a man in a camo jacket looking up at the night sky" loading="lazy"></figure><figcaption><b>02</b>Looking up.</figcaption></div>
+    </div>
+    <div class="kp fade">
+      <div>
+        <span class="lbl muted">Will you see it from Oregon?</span>
+        <div class="kval" id="kval" style="margin-top:22px">Kp 5</div>
+        <input type="range" min="1" max="9" value="5" id="kpr" aria-label="Kp index">
+        <div class="verdict" id="kverdict"></div>
+      </div>
+      <div class="sky"><div class="band" id="kband"></div><div class="ridge"></div><svg><use href="#spark"/></svg></div>
+    </div>
+    <div class="col" style="text-align:center"><span class="lbl muted">Wear the night</span><p style="font-style:italic;font-size:20px;margin-top:16px;color:#c9c6bf">Camo in the dark, lit only by the sky. Shot handheld with a slow shutter.</p></div>
+    <div class="four fade">
+      <figure data-lb="night" data-cap="Green on the horizon."><img src="img/night-portrait.jpg" alt="Portrait of a man in a camo jacket against a violet sky" loading="lazy"></figure>
+      <figure data-lb="night" data-cap="Double exposure: profile and pines."><img src="img/night-profile.jpg" alt="Double exposure of a profile and pine trees under stars" loading="lazy"></figure>
+      <figure data-lb="night" data-cap="Slow shutter under a purple sky."><img src="img/night-blur.jpg" alt="Motion-blurred portrait under a purple sky" loading="lazy"></figure>
+      <figure data-lb="night" data-cap="Aurora over the treeline."><img src="img/aurora-hood.jpg" alt="Aurora over the treeline" loading="lazy" style="object-position:50% 30%"></figure>
+    </div>
+    <div class="notes fade">
+      <h4><svg class="g"><use href="#spark"/></svg>Trillium, after dark</h4>
+      <div><ol>
+        <li><b>Getting there.</b> Take US-26 east for about 40 miles, roughly 1 hr 20 min. Turn onto Trillium Lake Road (FR 2656), a mile past Government Camp.</li>
+        <li><b>Hours and fees.</b> The day-use area costs $10 per vehicle or a Northwest Forest Pass, and is open sunrise to sunset only. For night shooting, book a campsite.</li>
+        <li><b>Winter.</b> An Oregon Sno-Park permit is required from November 1 to April 30. The winter loop is a 4.4-mile round trip on snowshoes or skis.</li>
+        <li><b>The kit.</b> Watch for Kp 6 or higher. Bring a tripod and a wide, fast lens, and shoot 5–15 s at ISO 1600–3200 on a moonless night.</li>
+      </ol><div class="src">Sources: <a href="https://www.fs.usda.gov/r06/mthood/recreation/trillium-lake-day-use" target="_blank" rel="noopener">USFS — Trillium Lake Day Use</a> · <a href="https://www.fs.usda.gov/r06/mthood/recreation/trails/trillium-lake-loop-trail-761" target="_blank" rel="noopener">USFS — Trail #761</a> · <a href="https://www.fs.usda.gov/r06/mthood/recreation/trillium-sno-park-trailhead" target="_blank" rel="noopener">USFS — Sno-Park</a>. Checked November 2026.</div></div>
+    </div>
+    <div style="text-align:center;padding:10px 0 140px"><button class="btn" data-qa="q-lights">Accept the aurora quest</button></div>
+  </div>
+</section>
+
+<!-- SILVER FALLS -->
+<section id="silverfalls">
+  <div class="opener"><div class="coord-row" style="z-index:2"><span>44.8784° N  122.6531° W</span><span>ELEV 1,200 FT · SOUTH FALLS</span></div><img src="img/sf-overhang.jpg" alt="A hooded figure stands under a mossy basalt overhang beside a waterfall" style="object-position:72% 50%"><div class="ov"><div class="meta lbl"><span>03 — Feature</span><span>Silver Falls State Park, Oregon</span></div><h2 class="disp">Offseason at<br>Silver Falls</h2></div></div>
+  <div class="wrap">
+    <div class="standfirst col fade">
+      <p class="dek">Some days the body needs recalibrating more than it needs rest. Jurrion Dickey and Tarik Kaddouri trade a recovery day for play: behind the falls, along the canyon, and out the other side.</p>
+      <div class="credits"><div><span class="lbl muted">Featuring</span>Jurrion Dickey, Tarik Kaddouri</div><div><span class="lbl muted">Film &amp; stills</span>STOURI / LINQ</div></div>
+    </div>
+    <div class="col prose fade" style="padding-top:60px">
+      <p class="drop">The trail at Silver Falls does something most trails don’t: it goes behind the water. You walk under a lip of basalt, moss dripping, with the falls roaring a few feet away.</p>
+      <p>It’s the kind of place that turns a recovery day into a game. Chase each other down the switchbacks, race to the next fall, stop when the spray hits your face. The work is real, but it doesn’t feel like training.</p>
+    </div>
+    <div class="sf-pair fade">
+      <div><figure data-lb="sf" data-cap="Behind South Falls."><img src="img/sf-duo.jpg" alt="Two silhouetted figures in front of a tall waterfall" loading="lazy"></figure><figcaption><b>01</b>Behind South Falls.</figcaption></div>
+      <div><figure data-lb="sf" data-cap="Hood up before the spray."><img src="img/sf-duo-hood.jpg" alt="Two silhouetted figures, one pulling up a hood" loading="lazy"></figure><figcaption><b>02</b>Hood up.</figcaption></div>
+    </div>
+    <div class="pull fade"><blockquote>“Play teaches what rest cannot.”</blockquote><cite class="lbl muted">From the film</cite></div>
+    <div class="col fade">
+      <span class="lbl muted">The edit. Drag to compare the raw still with the Quest treatment</span>
+      <div class="flip" id="flip"><img src="img/sf-cafe.jpg" alt="Raw still at the South Falls cafe"><img class="top" src="img/sf-ghost.jpg" alt="Edited still with a double-exposure treatment"><span class="bar"></span><span class="lbl lb" style="left:14px">Raw</span><span class="lbl lb" style="right:14px">Edit</span></div>
+    </div>
+    <div class="asym fade" style="grid-template-columns:3fr 5fr">
+      <div><figure class="b" data-lb="sf" data-cap="The after-trail uniform."><img src="img/sf-cafe-2.jpg" alt="A man in a bucket hat leaning on a log post at the South Falls cafe" loading="lazy" style="object-position:28% 50%"></figure><figcaption><b>03</b>After the trail.</figcaption></div>
+      <div><figure class="a" style="aspect-ratio:16/11" data-lb="sf" data-cap="South Falls lodge."><img src="img/sf-portrait.jpg" alt="Portrait of a man in a blue bucket hat looking to the side" loading="lazy"></figure><figcaption><b>04</b>South Falls lodge.</figcaption></div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:20px 0 150px"><a class="btn" href="https://www.youtube.com/watch?v=JwVOM2OBRXg" target="_blank" rel="noopener">Watch the film · 3:14</a><button class="btn" data-qa="q-falls">Accept the quest</button></div>
+  </div>
+</section>
+
+<!-- OREGON -->
+<section id="oregon">
+  <div class="opener"><div class="coord-row" style="z-index:2"><span>44.0582° N  123.0687° W</span><span>AUTZEN STADIUM · EUGENE</span></div><img src="img/oregon-field.jpg" alt="Players warming up on the field at Autzen Stadium under the Mighty Oregon scoreboard"><div class="ov"><div class="meta lbl"><span>04 — Culture</span><span>University of Oregon iD Camp</span></div><h2 class="disp">Behind the<br>Culture</h2></div></div>
+  <div class="wrap">
+    <div class="standfirst col fade">
+      <p class="dek">Before the drills start, someone has to set the tone. At the University of Oregon iD Camp, DJ Takumii runs the soundtrack from the sideline, from field level to soundcheck.</p>
+      <div class="credits"><div><span class="lbl muted">Featuring</span>DJ Takumii</div><div><span class="lbl muted">Film</span>STOURI · 7:30</div><div><span class="lbl muted">Location</span>Autzen Stadium</div></div>
+    </div>
+    <div class="or-grid fade">
+      <div><figure class="a" data-lb="or" data-cap="Warm-ups at Autzen, before the camp begins."><img src="img/oregon-field.jpg" alt="Players warming up on the field" loading="lazy"></figure><figcaption><b>01</b>Warm-ups, before the camp begins.</figcaption>
+        <div class="col prose" style="margin-top:60px;max-width:none">
+          <p class="drop">Every program has a system: the drills, the depth chart, the playbook. Under the system there’s a culture, and you can hear it before you see it.</p>
+          <p>Takumii sets up on the concrete lip of the sideline. A laptop sits on the wall and the speaker faces the field. When the first track drops, the warm-up changes pace.</p>
+        </div>
+      </div>
+      <div class="off"><figure class="b" data-lb="or" data-cap="The booth: a laptop on the sideline wall, the field in front."><img src="img/oregon-booth.jpg" alt="Laptop on the sideline wall facing the field, the photographer’s feet in quilted pants and white sneakers" loading="lazy"></figure><figcaption><b>02</b>The booth, sideline wall.</figcaption>
+        <div class="setlist"><div><span>Cue</span><span>Soundcheck</span><span>Field level</span></div><div><span>Cue</span><span>Warm-ups</span><span>Tempo up</span></div><div><span>Cue</span><span>Euphoria — Kendrick Lamar</span><span>As credited in the film</span></div></div>
+      </div>
+    </div>
+    <div class="pull fade"><blockquote>“Behind every system is a culture.”</blockquote><cite class="lbl muted">From the film</cite></div>
+    <div class="bleed fade" style="margin-top:0"><figure style="height:min(80vh,820px)" data-lb="or" data-cap="Field level, Autzen Stadium."><img src="img/oregon-portrait.jpg" alt="Two young men smiling on the field at Autzen Stadium" loading="lazy" style="object-position:50% 30%"></figure><figcaption><b>03</b>Field level, Autzen Stadium.</figcaption></div>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap"><a class="btn" href="https://www.youtube.com/watch?v=bM4Olr8YB00" target="_blank" rel="noopener">Watch the film · 7:30</a><button class="btn" data-qa="q-culture">Accept the Soundcheck quest</button></div>
+  </div>
+</section>
+
+<!-- FILMS -->
+<section id="films" class="dark">
+  <div class="wrap">
+    <div class="sec-h fade" style="margin:0"><h2 class="disp">Films</h2><p style="color:#c9c6bf">Every story in print has a film behind it. Field films by STOURI.</p></div>
+    <div class="films fade">
+      <a class="film" href="https://www.youtube.com/watch?v=JwVOM2OBRXg" target="_blank" rel="noopener">
+        <div class="fr"><img src="img/sf-duo.jpg" alt=""><span class="play lbl"><i>▶</i>Play · 3:14</span></div>
+        <div class="fx"><div><span class="lbl muted">Field play · Jurrion Dickey, Tarik Kaddouri</span><div class="disp" style="margin-top:10px">Offseason at Silver Falls</div></div></div>
+        <p>Training, chasing and recovering among waterfalls across 1,200 feet of elevation.</p>
+      </a>
+      <a class="film" href="https://www.youtube.com/watch?v=bM4Olr8YB00" target="_blank" rel="noopener">
+        <div class="fr"><img src="img/oregon-field.jpg" alt=""><span class="play lbl"><i>▶</i>Play · 7:30</span></div>
+        <div class="fx"><div><span class="lbl muted">Behind the culture · DJ Takumii</span><div class="disp" style="margin-top:10px">Behind the Culture at Oregon</div></div></div>
+        <p>From field level to soundcheck at Autzen Stadium, at the University of Oregon iD Camp.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GEAR -->
+<section id="gear">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">The kit</h2><p>What was worn and carried, piece by piece. Choose a look, then tap a point on the image or an item in the list.</p></div>
+    <div class="looks lbl fade" id="looks"></div>
+    <div class="gear-wrap fade">
+      <div class="gear-fig" id="gearFig"></div>
+      <div><div class="gear-list" id="gearList"></div><p class="gear-note">Makers and credits are to be confirmed. They’ll be filled in from the shoot’s styling notes before publication.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">Manifesto</h2><p>Six things we believe.</p></div>
+    <div class="mani"><h3>01<br>Vision &amp; adventure</h3><p>We believe in exploration of places, ideas, passions, and the limitless potential of human creativity. Quest redefines luxury as purpose, adventure and innovation.</p></div>
+    <div class="mani"><h3>02<br>The uncharted</h3><p>Every page invites you to step outside the ordinary, into the processes, stories and people behind the designs, the meals and the journeys that shape our world.</p></div>
+    <div class="mani"><h3>03<br>Storytellers &amp; architects</h3><p>Fashion, design, athletics, adventure and culinary artistry, woven together and curated so every feature empowers you to act.</p></div>
+    <div class="mani"><h3>04<br>Physical &amp; digital</h3><p>A timeless object on your shelf, brought to life by AR, RFID-driven quests and digital extensions.</p></div>
+    <div class="mani"><h3>05<br>The compass</h3><p>From the trails of the Pacific Northwest to the coves of Catalina and the streets of Tokyo. Your map, your toolkit, your invitation.</p></div>
+    <div class="mani"><h3>06<br>Quest</h3><p>Not just here to be read. Here to be lived. This is not just a magazine; it’s a call to action.</p></div>
+    <div class="coda fade"><div class="disp">Create<svg class="g"><use href="#spark"/></svg>Explore<svg class="g"><use href="#spark"/></svg>Evolve</div></div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" class="dark" style="background:var(--ink2)">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">What is a quest</h2><p style="color:#c9c6bf">A real-world challenge you take on in LINQ gear, chosen from the app or the printed guide. You complete it, share it, and get rewarded.</p></div>
+    <div class="steps fade" id="steps" style="border-color:var(--line-d)">
+      <button class="step on" data-step="0"><span class="n">01</span><div class="disp">Select</div><p>Choose a quest: performance, adventure or community.</p><div class="ex">e.g. Accept the Catalina Island Performance Challenge.</div></button>
+      <button class="step" data-step="1"><span class="n">02</span><div class="disp">Complete</div><p>Do it in the real world. Tap the RFID points, scan the AR markers, and log your times.</p><div class="ex">e.g. Swim, spearfish, then run the circuit in LINQ footwear.</div></button>
+      <button class="step" data-step="2"><span class="n">03</span><div class="disp">Share</div><p>Post the journey so your followers can watch it unfold. Tag #LINQQuest.</p><div class="ex">e.g. Film the dives and post the run.</div></button>
+      <button class="step" data-step="3"><span class="n">04</span><div class="disp">Earn</div><p>Earn relics, badges, early access and gear upgrades. Each quest leads to the next.</p><div class="ex">e.g. Early access to the new footwear line.</div></button>
+    </div>
+    <div class="earn fade" style="border-color:var(--line-d)">
+      <div><h4>What you earn</h4><ul style="--line:var(--line-d)"><li style="border-color:var(--line-d)">Early access and limited editions</li><li style="border-color:var(--line-d)">Discounts on your next drop</li><li style="border-color:var(--line-d)">Badges and community status</li><li style="border-color:var(--line-d)">Custom 3D-printed gear upgrades</li><li style="border-color:var(--line-d)">Event invitations</li><li style="border-color:var(--line-d)">Old gear recycled into upgrades</li></ul></div>
+      <div><h4>Your relics</h4><p class="lbl muted" style="margin-bottom:22px">Each completed quest unlocks a relic</p><div class="relics" id="relics"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALSO -->
+<section id="issue">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">In the works</h2><p>Three more stories planned for the issue. They’re placeholders until the shoots happen.</p></div>
+    <div class="also fade" id="also"></div>
+  </div>
+</section>
+
+<!-- PATH -->
+<section id="path" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">Choose your path</h2><p>Tell us who you are, and the quest board rearranges itself around you.</p></div>
+    <div class="paths fade" id="paths"></div>
+    <div class="path-note" id="pathNote"></div>
+  </div>
+</section>
+
+<!-- QUESTS -->
+<section id="quests" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">The board</h2><p>Open a quest, accept it, then go and do it. Points move you from Rookie to Veteran.</p></div>
+    <div class="rank fade">
+      <div class="disp" id="ptsBig">0</div>
+      <div class="track"><div class="fill" id="fill"></div><span class="tk lbl" style="left:0%" data-at="0">Rookie</span><span class="tk lbl" style="left:40%" data-at="400">Intermediate</span><span class="tk lbl" style="left:100%" data-at="1000">Veteran</span></div>
+      <div class="now"><span class="disp" id="rankBig">Rookie</span><span class="lbl muted" id="rankNext">400 pts to Intermediate</span></div>
+    </div>
+    <div class="filters lbl" id="filters"></div>
+    <div class="qlist" id="qgrid"></div>
+    <p class="lbl muted" style="margin-top:22px">Rating · ◆ worth the day · ◆◆ worth the weekend · ◆◆◆ worth the journey</p>
+  </div>
+</section>
+
+<!-- COMPASS -->
+<section id="compass" class="dark">
+  <div class="wrap">
+    <div class="sec-h fade"><h2 class="disp">The compass</h2><p style="color:#c9c6bf">From Mt. Hood to Catalina, and across the Pacific to Tokyo.</p></div>
+    <div class="compass-wrap fade"><div class="mapbox" id="mapbox"></div><aside class="mapside" id="mapside"></aside></div>
+  </div>
+</section>
+
+<!-- PRINT -->
+<section id="print">
+  <div class="wrap print-grid">
+    <div class="mag fade" id="mag"><div class="page"><img src="img/cover-film.jpg" alt="Quest print cover: pines and stars" loading="lazy">
+      <div class="qr" id="qr"><div class="scanline"></div></div>
+      <span class="ar" style="top:22%;left:10%">Aurora · Kp 7</span><span class="ar" style="top:44%;right:10%">Film · Chasing Light</span><span class="ar" style="top:64%;left:28%">Quest · +150</span></div></div>
+    <div class="fade">
+      <span class="lbl muted">Print × digital</span>
+      <h2 class="disp" style="font-size:clamp(40px,4.6vw,70px);margin-top:18px">On your shelf,<br>and online</h2>
+      <div class="pillars">
+        <div class="pillar"><b>QR</b><p>Every page links out to its film, its recipe and the full guide.</p></div>
+        <div class="pillar"><b>RFID</b><p>Tap the issue at partner trailheads, docks and restaurants to log a quest.</p></div>
+        <div class="pillar"><b>AR</b><p>Point your phone at the cover and the sky starts to move.</p></div>
+      </div>
+      <button class="btn" id="scanBtn">Scan the cover</button>
+      <div class="unlock" id="unlock"><div class="recipe">
+        <span class="lbl muted">Unlocked · Quest kitchen</span>
+        <div class="disp">Catch-to-ceviche</div>
+        <ol><li>Use very fresh, firm white fish, kept on ice from the water to the board.</li><li>Dice it into 1 cm cubes and cover with fresh lime juice.</li><li>Leave it cold for 15–20 minutes, until the edges turn opaque.</li><li>Fold in red onion, chilli, cilantro and salt.</li></ol>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="dark">
+  <div class="wrap">
+    <span class="lbl muted">A call to action</span>
+    <h2 class="disp fade" style="margin-top:24px">Join the quest</h2>
+    <form class="joinform" id="joinForm"><input type="email" id="joinEmail" placeholder="Your email" required aria-label="Email"><button type="submit">Subscribe</button></form>
+    <div class="join-msg" id="joinMsg"></div>
+  </div>
+</section>
+
+<footer class="dark">
+  <div class="wrap foot">
+    <div><div class="logo">QUEST</div><p style="font-style:italic;color:#8f8d88;margin-top:14px">Create. Explore. Evolve.</p></div>
+    <div><h6 class="lbl">Read</h6><a href="#catalina" data-go="catalina">Catalina</a><a href="#trillium" data-go="trillium">Trillium</a><a href="#silverfalls" data-go="silverfalls">Silver Falls</a><a href="#films" data-go="films">Films</a></div>
+    <div><h6 class="lbl">Play</h6><a href="#how" data-go="how">What is a quest</a><a href="#quests" data-go="quests">The board</a><a href="#compass" data-go="compass">Compass</a></div>
+    <div><h6 class="lbl">Partner</h6><a href="#join" data-go="join">Be featured</a><a href="#join" data-go="join">Advertise</a><a href="#join" data-go="join">Stockists</a></div>
+    <div class="fine lbl"><span>© 2026 Quest Magazine · Produced by LINQ</span><span title="Every compass has a secret. Try turning it.">Portland · Los Angeles</span></div>
+  </div>
+</footer>
+
+<div id="reader" aria-hidden="true"><div class="bd" data-close></div><article class="sheet" id="sheet"></article></div>
+<div id="lb" aria-hidden="true"><button class="x lbl" data-lbclose style="color:var(--bone)">Close</button><div class="stage" data-lbclose><img id="lbImg" alt=""></div><button class="nv prev" id="lbPrev" aria-label="Previous">←</button><button class="nv next" id="lbNext" aria-label="Next">→</button><div class="cap lbl"><span id="lbCap"></span><span id="lbCount"></span></div></div>
+<div id="toast" class="lbl"></div>
+<div id="scene"><span>Soundscape · </span><b id="sceneName">—</b></div>
+<div class="hair h" id="hairH"></div><div class="hair v" id="hairV"></div>
+<div id="hud"><span id="hudSec">Issue 01</span><span><b id="hudLat">33.3879° N</b></span><span><b id="hudLon">118.4163° W</b></span><span id="hudEl">Elev 0 ft</span></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const EMB=window.name==='questbook';if(EMB)document.documentElement.classList.add('emb');
+const toGame=m=>{try{parent.postMessage(Object.assign({quest:1},m),'*')}catch(e){}};
+if(EMB){addEventListener('load',()=>{const h=location.hash.slice(1);const el=h&&document.getElementById(h);if(el)el.scrollIntoView({behavior:'auto'})});addEventListener('click',e=>{const b=e.target.closest('[data-qa]');if(b){e.stopImmediatePropagation();e.preventDefault();toGame({t:'accept',id:b.dataset.qa});b.textContent='Sent to your quest log';return}const m=e.target.closest('[data-map]');if(m){e.stopImmediatePropagation();toGame({t:'map',id:m.dataset.map})}},true);
+  addEventListener('message',e=>{const d=e.data;if(!d||!d.quest||e.source!==parent)return;if(d.t==='go'){const el=document.getElementById(d.id);if(el)el.scrollIntoView({behavior:'auto'})}})}
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store={get(k,d){try{const v=localStorage.getItem('quest3.'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('quest3.'+k,JSON.stringify(v))}catch(e){}}};
+
+const CATS=['Adventure','Athletics','Culinary','Fashion','Design','Culture'];
+const PATHS={
+  athlete:{name:'Athlete',img:'img/spear-ready.jpg',cats:['Athletics','Adventure'],copy:'Training, outdoor performance, and the mindset that carries from the pitch to the reef.'},
+  model:{name:'Model',img:'img/sf-hat.jpg',cats:['Fashion','Culture'],copy:'Editorials, the look, and what happens behind the shoot.'},
+  design:{name:'Design Enthusiast',img:'img/cabin.jpg',cats:['Design','Culinary','Culture'],copy:'The craft: a teak cabin, a well-made tool, the process behind the object.'}
+};
+const QUESTS=[
+  {id:'q-catalina',t:'Catalina Performance Challenge',cat:'Athletics',pts:300,d:4,r:3,loc:'Catalina Island',where:'catalina',img:'img/leap.jpg',desc:'The flagship quest of Issue 01, spread over a few days on the island. Log every step.',steps:['Open-water swim','Spearfish (licensed, outside the MPAs)','Run the circuit in LINQ footwear','Share it with #LINQQuest']},
+  {id:'q-sail',t:'Sail to Catalina',cat:'Adventure',pts:200,d:3,r:3,loc:'LA → Catalina',where:'catalina',img:'img/callisto.jpg',desc:'Cross the channel under sail (or by ferry, if you must) and spend a night at anchor.'},
+  {id:'q-ceviche',t:'Catch to ceviche',cat:'Culinary',pts:120,d:2,r:2,loc:'On deck',where:'catalina',img:'img/catch.jpg',desc:'Cook what you caught the same day. Scan the print cover for the method.'},
+  {id:'q-tct',t:'Trans-Catalina Trail',cat:'Athletics',pts:260,d:4,r:3,loc:'Avalon → Parsons Landing',where:'catalina',img:'img/rocks.jpg',desc:'38.5 miles across the island’s spine. Get the free permit and book your campsites first.'},
+  {id:'q-cove',t:'Find your cove',cat:'Adventure',pts:80,d:1,r:1,loc:'Any coastline',where:'catalina',img:'img/cove.jpg',desc:'Find a beach with nobody on it, and stay until the light goes.'},
+  {id:'q-lights',t:'Lights over Hood',cat:'Adventure',pts:150,d:3,r:3,loc:'Trillium Lake, OR',where:'trillium',img:'img/aurora-ridge.jpg',desc:'When the Kp forecast hits 6 or higher, drive east, face north and photograph the aurora.',steps:['Check the Kp forecast','Drive US-26 to Trillium Lake','Shoot the lights, facing north','Share it with #LINQQuest']},
+  {id:'q-wear',t:'Wear the night',cat:'Fashion',pts:70,d:1,r:1,loc:'Somewhere dark',where:'trillium',img:'img/night-portrait.jpg',desc:'Make a night portrait lit only by the sky. Use a slow shutter and let it blur.'},
+  {id:'q-falls',t:'Offseason at Silver Falls',cat:'Athletics',pts:140,d:2,r:2,loc:'Silver Falls, OR',where:'silverfalls',img:'img/sf-overhang.jpg',desc:'Trade a rest day for play. Move through the falls trail, chase someone, and let your body recalibrate.',steps:['Trail-run past the falls','Play, don’t rest','Share it with #LINQQuest']},
+  {id:'q-culture',t:'Soundcheck',cat:'Culture',pts:90,d:1,r:2,loc:'Autzen Stadium, Eugene',where:'eugene',img:'img/oregon-booth.jpg',desc:'Find the culture behind a team. Document a game day, a practice or a soundcheck from the inside.'},
+  {id:'q-dawn',t:'5K at dawn',cat:'Athletics',pts:80,d:1,r:1,loc:'Willamette River, Portland',where:'portland',img:null,desc:'Run the river loop before 7 a.m.'},
+  {id:'q-forage',t:'Forage and cook',cat:'Culinary',pts:120,d:2,r:2,loc:'Coast Range, OR',where:'coast',img:null,desc:'Go out with a licensed guide, bring back something wild, and cook it the same night.'},
+  {id:'q-make',t:'Make it by hand',cat:'Design',pts:140,d:3,r:2,loc:'Astoria, OR',where:'astoria',img:null,desc:'Take a workshop and finish one object from start to end.'},
+  {id:'q-tokyo',t:'Eat the alley',cat:'Culinary',pts:160,d:2,r:3,loc:'Tokyo',where:'tokyo',img:null,desc:'Find an eight-seat counter down a side street, and order what the regulars order.'}
+];
+const SECRET={id:'q-secret',t:'True north',cat:'Adventure',pts:100,d:2,r:3,loc:'Unknown',where:null,img:null,desc:'You found the compass’s secret. Go somewhere you’ve never been, with no map, and come back with a story.',secret:true};
+const PLACES={
+  seattle:{n:'Seattle',x:812,y:86,c:'47.61° N, 122.33° W',p:'Studios, galleries, and coffee strong enough to fuel a redesign.'},
+  astoria:{n:'Astoria',x:772,y:132,c:'46.19° N, 123.83° W',p:'Where the Columbia meets the Pacific.'},
+  portland:{n:'Portland',x:812,y:160,c:'45.52° N, 122.68° W',p:'Quest’s home in the Northwest.'},
+  coast:{n:'Coast Range',x:778,y:178,c:'45.50° N, 123.70° W',p:'Second-growth fir, and gold under the trees after the rain.'},
+  silverfalls:{n:'Silver Falls',x:820,y:204,c:'44.88° N, 122.65° W',p:'Waterfalls and 1,200 feet of elevation. Scene of “Offseason at Silver Falls.”'},
+  eugene:{n:'Eugene',x:800,y:250,c:'44.06° N, 123.07° W',p:'Autzen Stadium and the University of Oregon. Scene of “Behind the Culture at Oregon.”'},
+  trillium:{n:'Trillium Lake',x:850,y:178,c:'45.27° N, 121.74° W',p:'3,600 feet up, below Mt. Hood, under a dark northern sky. Scene of “Chasing Light.”'},
+  la:{n:'Los Angeles',x:914,y:448,c:'34.05° N, 118.24° W',p:'Quest’s southern home port.'},
+  catalina:{n:'Catalina',x:872,y:486,c:'33.39° N, 118.42° W',p:'About twenty miles offshore. Scene of “The Catalina Quest.”'},
+  tokyo:{n:'Tokyo',x:178,y:300,c:'35.68° N, 139.65° E',p:'A city of a thousand eight-seat counters.'}
+};
+const RANKS=[{n:'Rookie',at:0},{n:'Intermediate',at:400},{n:'Veteran',at:1000}];
+const ALSO=[
+  {id:'foraged',cat:'Culinary',title:'Foraged',dek:'A morning in the Coast Range, and the dinner that came after it.',quest:'q-forage',body:['Chanterelles hide in plain sight under second-growth Douglas fir. Once your eyes learn the colour, the gold is everywhere.','Our guide carries a knife, a mesh bag so the spores fall back to the forest floor, and one rule: never eat anything you can’t identify three ways.','Dinner was brown butter, thyme, rye and a cured yolk. The point was knowing where every bite came from.']},
+  {id:'rookie',cat:'Athletics',title:'Rookie Season',dek:'A college sprinter, the river path at 6 a.m., and a new economy.',quest:'q-dawn',body:['She runs the Willamette path before class, while the bridges are still lit.','Name, image and likeness rules turned college athletes into small media companies overnight. The hard part is staying worth following when the cameras are off.','Her advice to rookies: protect the morning. The sponsorships follow the work.']},
+  {id:'workshop',cat:'Design',title:'The Workshop at the End of the Road',dek:'Chairs carved from storm-felled spruce near Astoria.',quest:'q-make',body:['After the big winter storms, the coast is littered with fallen Sitka spruce. A small workshop takes what it can carry.','Every chair begins as a split log and ends six weeks later, oiled and signed.','Visitors are welcome on Saturdays. Bring your hands.']}
+];
+
+let S=store.get('state',{accepted:[],done:[],path:null,secret:false,steps:{}});S.steps=S.steps||{};
+const save=()=>store.set('state',S);
+const all=()=>S.secret?[...QUESTS,SECRET]:QUESTS;
+const points=()=>all().filter(q=>S.done.includes(q.id)).reduce((a,q)=>a+q.pts,0);
+const rankOf=p=>RANKS.filter(r=>p>=r.at).pop();
+const dia=n=>'◆'.repeat(n);
+const label=id=>S.done.includes(id)?'Completed':S.accepted.includes(id)?'Mark complete':'Accept quest';
+
+/* cover */
+let cov=0,covT;
+function setCover(i){cov=i;$$('.slide').forEach(s=>s.classList.toggle('on',+s.dataset.s===i));$$('.cl').forEach(s=>s.classList.toggle('on',+s.dataset.s===i));$$('.cidx button').forEach(b=>b.classList.toggle('on',+b.dataset.cover===i))}
+function auto(){clearInterval(covT);if(!RM)covT=setInterval(()=>setCover((cov+1)%3),7000)}
+$$('.cidx button').forEach(b=>b.addEventListener('click',()=>{setCover(+b.dataset.cover);auto()}));auto();
+
+/* toc hover image */
+const ti=$('#tocImg');
+$$('#toc a').forEach(a=>{a.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover)').matches){ti.querySelector('img').src=a.dataset.img;ti.classList.add('on')}});a.addEventListener('mouseleave',()=>ti.classList.remove('on'))});
+$('#toc').addEventListener('mousemove',e=>{ti.style.left=(e.clientX+180)+'px';ti.style.top=e.clientY+'px'});
+
+/* manifesto */
+$$('.mani p').forEach(p=>{const walk=n=>[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t||/^\s+$/.test(t))f.appendChild(document.createTextNode(t));else{const s=document.createElement('span');s.className='w';s.textContent=t;f.appendChild(s)}});c.replaceWith(f)}else walk(c)});walk(p)});
+function maniTick(){const vh=innerHeight;$$('.mani p').forEach(p=>{const b=p.getBoundingClientRect();const pr=Math.min(1,Math.max(0,(vh*.85-b.top)/(b.height+vh*.3)));const ws=p.querySelectorAll('.w');const n=Math.round(pr*ws.length);ws.forEach((w,i)=>w.classList.toggle('on',RM||i<n))})}
+
+/* catalina map */
+(function(){
+  const stops={mdr:{x:150,y:60,n:'Marina del Rey',p:'Where many private sailboats leave from. Plan on most of a morning under sail.'},sp:{x:250,y:118,n:'San Pedro',p:'Ferry to Avalon or Two Harbors, about 1 hr 10 min. The best port for trail hikers.'},lb:{x:310,y:110,n:'Long Beach',p:'Catalina Express to Avalon in about an hour. The busiest port.'},two:{x:150,y:300,n:'Two Harbors',p:'The quiet isthmus village: moorings, a general store, and the trail.'},av:{x:330,y:362,n:'Avalon',p:'The harbour town. Casino Point and Lover’s Cove are no-take reserves.'},pl:{x:72,y:282,n:'Parsons Landing',p:'A remote beach campground on the west end, at the end of the Trans-Catalina Trail.'}};
+  const pins=Object.entries(stops).map(([k,s])=>`<g class="stop" data-k="${k}" tabindex="0"><circle cx="${s.x}" cy="${s.y}" r="14" fill="transparent"/><circle class="c" cx="${s.x}" cy="${s.y}" r="3.5" fill="#1A1A1A"/><text x="${s.x+12}" y="${s.y-8}" font-family="Inter" font-size="10" letter-spacing="1.5" fill="#8C8A85">${s.n.toUpperCase()}</text></g>`).join('');
+  $('#catmap').innerHTML=`<svg viewBox="0 0 480 420" role="img" aria-label="Map from Los Angeles to Catalina Island">
+    <path d="M100 0 L120 30 L150 50 L190 70 L230 100 L262 112 L300 104 L340 112 L380 140 L420 170 L480 190" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+    <text x="470" y="40" text-anchor="end" font-family="Beon" font-size="20" fill="#1A1A1A">Los Angeles</text>
+    <path d="M40 296 C 70 270, 110 268, 140 286 C 152 292, 162 292, 172 300 C 210 318, 260 330, 300 344 C 330 352, 352 362, 360 376 C 350 392, 320 390, 290 380 C 240 366, 200 350, 168 330 C 150 320, 140 318, 130 316 C 100 312, 62 316, 40 296Z" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+    <text x="200" y="404" font-family="Beon" font-size="16" fill="#1A1A1A">Santa Catalina</text>
+    <path d="M150 64 C 140 140, 140 220, 150 296" stroke="#1A1A1A" stroke-width="1" fill="none"/>
+    <path d="M310 114 C 320 220, 330 300, 330 360 M250 122 C 220 200, 180 260, 152 298" stroke="#8C8A85" stroke-width="1" stroke-dasharray="2 4" fill="none"/>
+    <g transform="translate(420 280)" fill="#1A1A1A"><path d="M0 -16 L3 0 L0 16 L-3 0Z"/><text y="-22" text-anchor="middle" font-family="Inter" font-size="9">N</text></g>
+    <text x="10" y="414" font-family="Inter" font-size="9" letter-spacing="1" fill="#8C8A85">SOLID: THE CALLISTO’S ROUTE · DOTTED: FERRY ROUTES · NOT FOR NAVIGATION</text>${pins}</svg>`;
+  $('#catinfo').innerHTML=`<span class="lbl muted">The route</span><div class="disp" id="ciN"></div><p id="ciP"></p><div class="idx">${Object.entries(stops).map(([k,s])=>`<button data-k="${k}">${s.n}</button>`).join('')}</div>`;
+  const sel=k=>{const s=stops[k];$$('#catmap .stop').forEach(g=>g.classList.toggle('on',g.dataset.k===k));$$('#catinfo .idx button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));$('#ciN').textContent=s.n;$('#ciP').textContent=s.p};
+  document.addEventListener('click',e=>{const g=e.target.closest('#catmap .stop,#catinfo .idx button');if(g){sel(g.dataset.k);SND.tick()}});
+  $('#catmap').addEventListener('mouseover',e=>{const g=e.target.closest('.stop');if(g)sel(g.dataset.k)});
+  sel('mdr');
+})();
+
+/* kp */
+function kp(v){$('#kval').textContent='Kp '+v;const b=$('#kband');const s=Math.max(0,(v-3)/6);b.style.transform=`scaleY(${.12+s})`;b.style.opacity=v<4?.12:.2+s*.8;
+  $('#kverdict').textContent=v<=4?'Unlikely from Oregon. Stay home and watch the forecast.':v===5?'Possibly a faint glow low in the north, mostly visible to the camera.':v<=6?'Good odds. Get somewhere dark, face north, and shoot long exposures.':'Go now. It may be overhead, and visible to the eye in colour.'}
+$('#kpr').addEventListener('input',e=>kp(+e.target.value));kp(5);
+
+/* flip */
+(function(){const f=$('#flip');let d=false;const set=e=>{const r=f.getBoundingClientRect();f.style.setProperty('--x',Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+'%')};
+f.addEventListener('pointerdown',e=>{d=true;set(e)});addEventListener('pointerup',()=>d=false);f.addEventListener('pointermove',e=>{if(d||e.pointerType==='mouse')set(e)})})();
+
+/* also */
+$('#also').innerHTML=ALSO.map((s,i)=>`<button class="story" data-id="${s.id}" data-cat="${s.cat}"><span class="lbl muted">0${i+7} · ${s.cat}</span><div class="disp">${s.title}</div><p>${s.dek}</p><div class="r lbl link">Read the preview</div></button>`).join('');
+$('#also').addEventListener('click',e=>{const b=e.target.closest('.story');if(b)openStory(b.dataset.id)});
+function openStory(id){const s=ALSO.find(x=>x.id===id),q=QUESTS.find(x=>x.id===s.quest);
+  $('#sheet').innerHTML=`<button class="x lbl" data-close>Close</button><span class="lbl muted">${s.cat} · Placeholder</span><h2 class="disp">${s.title}</h2><p class="dek">${s.dek}</p><div class="prose"><p class="drop">${s.body[0]}</p><p>${s.body[1]}</p><p>${s.body[2]}</p></div><hr class="rule" style="margin:40px 0 30px"><span class="lbl muted">The quest · +${q.pts} pts</span><div class="disp" style="font-size:30px;margin:12px 0 10px">${q.t}</div><p style="font-size:18px;line-height:1.5;margin-bottom:24px">${q.desc}</p><button class="btn" data-qa="${q.id}">${label(q.id)}</button>`;
+  $('#reader').classList.add('open');document.body.style.overflow='hidden'}
+const closeStory=()=>{$('#reader').classList.remove('open');document.body.style.overflow=''};
+$('#reader').addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeStory()});
+
+/* lightbox */
+let L=[],li=0;
+function lbShow(){const f=L[li],im=f.querySelector('img');$('#lbImg').src=im.src;$('#lbImg').alt=im.alt;$('#lbCap').textContent=f.dataset.cap||'';$('#lbCount').textContent=`${String(li+1).padStart(2,'0')} / ${String(L.length).padStart(2,'0')}`}
+document.addEventListener('click',e=>{const f=e.target.closest('figure[data-lb]');if(!f)return;L=$$(`figure[data-lb="${f.dataset.lb}"]`);li=L.indexOf(f);lbShow();$('#lb').classList.add('open');document.body.style.overflow='hidden'});
+const lbClose=()=>{$('#lb').classList.remove('open');document.body.style.overflow=''};
+$('#lb').addEventListener('click',e=>{if(e.target.closest('[data-lbclose]')&&e.target.tagName!=='IMG')lbClose()});
+$('#lbPrev').onclick=()=>{li=(li-1+L.length)%L.length;lbShow()};$('#lbNext').onclick=()=>{li=(li+1)%L.length;lbShow()};
+addEventListener('keydown',e=>{if(e.key==='Escape'){lbClose();closeStory()}if($('#lb').classList.contains('open')){if(e.key==='ArrowRight')$('#lbNext').click();if(e.key==='ArrowLeft')$('#lbPrev').click()}});
+
+/* paths */
+function renderPaths(){$('#paths').innerHTML=Object.entries(PATHS).map(([k,p])=>`<button class="pathcard ${S.path===k?'sel':''}" data-path="${k}"><div class="ph"><img src="${p.img}" alt="" loading="lazy"></div><div class="pb"><div class="disp">${p.name}</div><span class="mk"></span></div><p>${p.copy}</p></button>`).join('');
+  $('#pathNote').textContent=S.path?`The board is now arranged for the ${PATHS[S.path].name}.`:''}
+$('#paths').addEventListener('click',e=>{const c=e.target.closest('[data-path]');if(!c)return;S.path=S.path===c.dataset.path?null:c.dataset.path;save();applyPath();renderPaths();renderQuests()});
+function applyPath(){$$('.story').forEach(s=>s.classList.toggle('dim',!!S.path&&!PATHS[S.path].cats.includes(s.dataset.cat)))}
+
+/* quests */
+let filter='All',open=null;
+function renderFilters(){$('#filters').innerHTML=['All','For you','Catalina','Trillium','Silver Falls',...CATS,'Completed'].map(f=>`<button class="${filter===f?'on':''}" data-f="${f}">${f}</button>`).join('')}
+$('#filters').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;filter=b.dataset.f;renderFilters();renderQuests()});
+function renderQuests(){const cats=S.path?PATHS[S.path].cats:[];let l=all().slice();if(S.path)l.sort((a,b)=>cats.includes(b.cat)-cats.includes(a.cat));
+  const wm={Catalina:'catalina',Trillium:'trillium','Silver Falls':'silverfalls'};
+  l=l.filter(q=>filter==='All'||(filter==='For you'?cats.includes(q.cat):filter==='Completed'?S.done.includes(q.id):wm[filter]?q.where===wm[filter]:q.cat===filter));
+  $('#qgrid').innerHTML=l.length?l.map((q,i)=>{const done=S.done.includes(q.id),acc=S.accepted.includes(q.id);
+   const steps=q.steps&&(acc||done)?`<ul class="qsteps">${q.steps.map((st,j)=>`<li><label><input type="checkbox" data-step-q="${q.id}" data-i="${j}" ${done||(S.steps[q.id]||[])[j]?'checked':''}><span>${st}</span></label></li>`).join('')}</ul>`:'';
+   const act=done?`<button class="btn" data-qa="${q.id}">Reset</button>`:acc&&q.steps?`<span class="lbl muted">Tick every step to complete</span>`:`<button class="btn ${acc?'':''}" data-qa="${q.id}">${acc?'Mark complete':'Accept quest'}</button>`;
+   return `<div class="q ${done?'done':acc?'acc':''} ${cats.includes(q.cat)?'match':''} ${open===q.id?'open':''}" data-q="${q.id}">
+   <div class="row" data-toggle="${q.id}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${q.t}</span><span class="loc">${q.loc}</span><span class="rt">${dia(q.r)}</span><span class="pt">+${q.pts}</span><span class="st lbl"><span class="dot"></span>${done?'Completed':acc?'In progress':q.cat}</span></div>
+   <div class="more"><div class="tx"><p>${q.desc}</p>${steps}<div class="acts">${act}${q.where?`<button class="btn" data-map="${q.where}">Show on the map</button>`:''}</div></div>${q.img?`<div class="img"><img src="${q.img}" alt="" loading="lazy"></div>`:''}</div></div>`}).join(''):`<p style="padding:30px 0;font-style:italic;color:var(--grey)">${filter==='Completed'?'Nothing completed yet.':'Choose a path above to see the quests picked for you.'}</p>`}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-toggle]');if(t){open=open===t.dataset.toggle?null:t.dataset.toggle;$$('.q').forEach(q=>q.classList.toggle('open',q.dataset.q===open))}});
+document.addEventListener('change',e=>{const c=e.target.closest('[data-step-q]');if(!c)return;const id=c.dataset.stepQ,q=all().find(x=>x.id===id);const arr=S.steps[id]||q.steps.map(()=>false);arr[+c.dataset.i]=c.checked;S.steps[id]=arr;save();
+  if(arr.every(Boolean)&&!S.done.includes(id))questAction(id);else if(!arr.every(Boolean)&&S.done.includes(id)){S.done=S.done.filter(x=>x!==id);save();renderQuests();updatePts()}});
+function questAction(id){const q=all().find(x=>x.id===id);
+  if(S.done.includes(id)){S.done=S.done.filter(x=>x!==id);S.accepted=S.accepted.filter(x=>x!==id);delete S.steps[id];toast('Quest reset')}
+  else if(S.accepted.includes(id)){const b=rankOf(points()).n;S.done.push(id);SND.chord();toast(`Completed · +${q.pts} pts`);const a=rankOf(points()).n;if(a!==b)setTimeout(()=>toast('New rank · '+a),2200)}
+  else{S.accepted.push(id);toast('Accepted · '+q.t);open=id;if(!$('#quests').contains(document.activeElement))setTimeout(()=>$('#quests').scrollIntoView({behavior:RM?'auto':'smooth'}),300)}
+  save();renderQuests();updatePts();$$('[data-qa]').forEach(b=>{if(!b.closest('#qgrid'))b.textContent=b.closest('.guide,#trillium,#silverfalls')?(S.done.includes(b.dataset.qa)?'Completed':S.accepted.includes(b.dataset.qa)?'In progress · see the board':b.textContent):label(b.dataset.qa)});const a=$('.pin.active');if(a)selectPlace(a.dataset.place)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-qa]');if(b){questAction(b.dataset.qa);return}const m=e.target.closest('[data-map]');if(m){selectPlace(m.dataset.map);$('#compass').scrollIntoView({behavior:RM?'auto':'smooth'})}});
+let shown=0;
+function updatePts(){renderRelics();const p=points(),r=rankOf(p),nx=RANKS.find(x=>x.at>p);$('#navPts').textContent=p;$('#navRank').textContent=r.n;$('#rankBig').textContent=r.n;$('#rankNext').textContent=nx?`${nx.at-p} pts to ${nx.n}`:'Top rank reached';$('#fill').style.width=Math.min(100,p/10)+'%';$$('.track .tk').forEach(t=>t.classList.toggle('hit',p>=+t.dataset.at));
+  const el=$('#ptsBig'),from=shown,t0=performance.now();shown=p;const st=t=>{const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(from+(p-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+function renderRelics(){$('#relics').innerHTML=all().map(q=>`<div class="relic ${S.done.includes(q.id)?'got':''}" title="${q.t}"><svg viewBox="0 0 120 60"><use href="#orbit"/></svg>${q.t}</div>`).join('')}
+
+/* steps */
+$('#steps').addEventListener('click',e=>{const b=e.target.closest('.step');if(b){clearInterval(stT);$$('.step').forEach(x=>x.classList.toggle('on',x===b))}});
+let stI=0,stT;if(!RM)stT=setInterval(()=>{stI=(stI+1)%4;$$('.step').forEach((x,i)=>x.classList.toggle('on',i===stI))},3600);
+
+/* compass */
+function renderMap(){let dots='';const coast=y=>760+(y-40)*.25+Math.sin(y/30)*6;
+  const land=(x,y)=>{if(y>30&&y<540&&x>coast(y))return true;const j=[[110,370,16],[125,350,18],[140,332,20],[160,315,20],[178,298,18],[192,276,16],[200,252,14],[204,228,14],[210,200,20],[222,175,22],[90,390,12]];return j.some(([a,b,c])=>Math.hypot(x-a,y-b)<c)};
+  for(let y=24;y<550;y+=10)for(let x=20;x<990;x+=10)if(land(x,y))dots+=`<circle cx="${x}" cy="${y}" r="1" fill="#F3F1EC" opacity=".22"/>`;
+  const pins=Object.entries(PLACES).map(([k,p])=>{const left=['astoria','coast','eugene'].includes(k);return `<g class="pin" data-place="${k}" tabindex="0"><circle cx="${p.x}" cy="${p.y}" r="12" fill="transparent"/><circle class="halo" cx="${p.x}" cy="${p.y}" r="5"/><circle class="core" cx="${p.x}" cy="${p.y}" r="3"/><text x="${left?p.x-12:p.x+12}" y="${p.y+4}" text-anchor="${left?'end':'start'}">${p.n}</text></g>`}).join('');
+  $('#mapbox').innerHTML=`<svg viewBox="0 0 1000 560" role="img" aria-label="Map of Quest locations">${dots}
+   <path d="M178 300 C 360 60, 640 40, 812 160" stroke="#F3F1EC" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 5" fill="none"/>
+   <path d="M812 160 C 880 260, 920 360, 914 448" stroke="#F3F1EC" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 5" fill="none"/>${pins}</svg>
+   <svg class="rose" id="rose" viewBox="0 0 100 100" aria-label="Compass"><use href="#atom"/></svg>`}
+function selectPlace(k){const p=PLACES[k];if(!p)return;$$('.pin').forEach(el=>el.classList.toggle('active',el.dataset.place===k));const qs=QUESTS.filter(q=>q.where===k);
+  $('#mapside').innerHTML=`<span class="lbl muted">${p.c}</span><div class="disp">${p.n}</div><p>${p.p}</p><div class="mq">${qs.length?qs.map(q=>`<div style="margin-bottom:18px"><span class="lbl muted">${q.cat} · +${q.pts} · ${dia(q.r)}</span><div class="disp">${q.t}</div><button class="btn" data-qa="${q.id}">${label(q.id)}</button></div>`).join(''):'<p class="muted" style="font-style:italic">No quest here yet.</p>'}</div>`}
+$('#mapbox').addEventListener('click',e=>{const g=e.target.closest('.pin');if(g)selectPlace(g.dataset.place);if(e.target.closest('#rose'))spin()});
+$('#mapbox').addEventListener('keydown',e=>{const g=e.target.closest('.pin');if(g&&e.key==='Enter')selectPlace(g.dataset.place)});
+let sp=0,spT;function spin(){sp++;$('#rose').style.transform=`rotate(${sp*90}deg)`;clearTimeout(spT);spT=setTimeout(()=>sp=0,1500);if(sp>=4&&!S.secret){S.secret=true;save();renderQuests();updatePts();toast('Secret quest unlocked · True north');sp=0}}
+
+/* print */
+(function(){let s=42;const r=()=>{s=(s*9301+49297)%233280;return s/233280};let m='';const f=(x,y)=>`<rect x="${x}" y="${y}" width="7" height="7"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3"/>`;const inF=(x,y)=>(x<8&&y<8)||(x>16&&y<8)||(x<8&&y>16);for(let y=0;y<25;y++)for(let x=0;x<25;x++)if(!inF(x,y)&&r()>.52)m+=`<rect x="${x}" y="${y}" width="1" height="1"/>`;$('#qr').insertAdjacentHTML('afterbegin',`<svg viewBox="0 0 25 25" shape-rendering="crispEdges">${m}${f(0,0)}${f(18,0)}${f(0,18)}</svg>`)})();
+let scanned=false;$('#scanBtn').addEventListener('click',()=>{if(scanned)return;$('#qr').classList.add('scanning');$('#scanBtn').textContent='Scanning';setTimeout(()=>{scanned=true;$('#qr').classList.remove('scanning');$('#mag').classList.add('unlocked');$('#unlock').classList.add('open');$('#scanBtn').textContent='Unlocked';$('#scanBtn').classList.add('on')},RM?100:2300)});
+
+/* join */
+$('#joinForm').addEventListener('submit',e=>{e.preventDefault();$('#joinMsg').textContent='Noted on this device only. Subscriptions open at launch; nothing has been sent.';$('#joinEmail').value=''});
+
+let tt;function toast(m){const t=$('#toast');t.innerHTML=`<i></i><span>${m}</span>`;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600)}
+
+/* scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+$$('.fade').forEach(el=>io.observe(el));
+const ids=['cover','contents','catalina','trillium','silverfalls','oregon','films','gear','manifesto','how','issue','path','quests','compass','print','join'];
+const dk=['trillium','films','how','compass','join','plan'];
+let tk=false;addEventListener('scroll',()=>{if(tk)return;tk=true;requestAnimationFrame(()=>{tk=false;const h=document.documentElement;$('#progress').style.width=(h.scrollTop/(h.scrollHeight-innerHeight)*100)+'%';
+  $('#nav').classList.toggle('solid',scrollY>innerHeight*.85);
+  let under='';[...ids,'plan'].forEach(id=>{const el=document.getElementById(id);const b=el.getBoundingClientRect();if(b.top<60&&b.bottom>60)under=id});
+  const op=$$('.opener').some(o=>{const b=o.getBoundingClientRect();return b.top<60&&b.bottom>60});
+  $('#nav').classList.toggle('dk',dk.includes(under)||op);
+  maniTick();let cur='';ids.forEach(id=>{if(document.getElementById(id).getBoundingClientRect().top<innerHeight*.4)cur=id});$$('nav a[data-go]').forEach(a=>a.classList.toggle('active',a.dataset.go===cur&&!a.classList.contains('logo')))})},{passive:true});
+document.addEventListener('click',e=>{const a=e.target.closest('a[data-go]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.go);if(t)t.scrollIntoView({behavior:RM?'auto':'smooth'})});
+
+/* ===== cartographer layer ===== */
+// value noise
+const P=new Uint8Array(512);(()=>{const p=[...Array(256).keys()];for(let i=255;i>0;i--){const j=(Math.sin(i*91.7)*43758.5453%1+1)%1*(i+1)|0;[p[i],p[j]]=[p[j],p[i]]}for(let i=0;i<512;i++)P[i]=p[i&255]})();
+const fade=t=>t*t*(3-2*t),lerp=(a,b,t)=>a+(b-a)*t,hv=(x,y,z)=>P[(P[(P[x&255]+y)&511]+z)&511]/255;
+function noise(x,y,z){const X=Math.floor(x),Y=Math.floor(y),Z=Math.floor(z),fx=fade(x-X),fy=fade(y-Y),fz=fade(z-Z);
+  const a=lerp(lerp(hv(X,Y,Z),hv(X+1,Y,Z),fx),lerp(hv(X,Y+1,Z),hv(X+1,Y+1,Z),fx),fy),b=lerp(lerp(hv(X,Y,Z+1),hv(X+1,Y,Z+1),fx),lerp(hv(X,Y+1,Z+1),hv(X+1,Y+1,Z+1),fx),fy);return lerp(a,b,fz)}
+function topo(cv){const ctx=cv.getContext('2d');const col=cv.dataset.topo==='ink'?'26,26,26':'243,241,236';let W,H,cols,rows,cell=12,t=Math.random()*10,vis=false,mx=.5,my=.5;
+  const size=()=>{const d=Math.min(2,devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);cols=Math.ceil(W/cell)+1;rows=Math.ceil(H/cell)+1};size();addEventListener('resize',size);
+  new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(cv);
+  cv.parentElement.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width;my=(e.clientY-r.top)/r.height});
+  const L=11;let last=0;
+  function draw(now){requestAnimationFrame(draw);if(!vis||now-last<66)return;last=now;if(!RM)t+=.004;
+    const f=new Float32Array(cols*rows);for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const x=i*cell/260,y=j*cell/260;
+      // a "summit" pulled toward the cursor: the map bends to the viewer
+      const dx=i/cols-mx,dy=j/rows-my;const hill=Math.exp(-(dx*dx+dy*dy)*9)*.35;
+      f[j*cols+i]=noise(x,y,t)*.7+noise(x*2.3,y*2.3,t*1.7)*.3+hill}
+    ctx.clearRect(0,0,W,H);ctx.lineWidth=.7;
+    for(let k=1;k<L;k++){const lv=k/L*1.15;ctx.strokeStyle=`rgba(${col},${k%5===0?.55:.22})`;ctx.beginPath();
+      for(let j=0;j<rows-1;j++)for(let i=0;i<cols-1;i++){const a=f[j*cols+i],b=f[j*cols+i+1],c=f[(j+1)*cols+i+1],d=f[(j+1)*cols+i];
+        const idx=(a>lv?8:0)|(b>lv?4:0)|(c>lv?2:0)|(d>lv?1:0);if(idx===0||idx===15)continue;
+        const x=i*cell,y=j*cell,T=[x+cell*(lv-a)/(b-a),y],Rr=[x+cell,y+cell*(lv-b)/(c-b)],B=[x+cell*(lv-d)/(c-d),y+cell],Lf=[x,y+cell*(lv-a)/(d-a)];
+        const seg=(p,q)=>{ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1])};
+        switch(idx){case 1:case 14:seg(Lf,B);break;case 2:case 13:seg(B,Rr);break;case 3:case 12:seg(Lf,Rr);break;case 4:case 11:seg(T,Rr);break;case 5:seg(Lf,T);seg(B,Rr);break;case 6:case 9:seg(T,B);break;case 7:case 8:seg(Lf,T);break;case 10:seg(T,Rr);seg(Lf,B);break}}
+      ctx.stroke()}}
+  requestAnimationFrame(draw)}
+$$('canvas[data-topo]').forEach(topo);
+
+// cover lens: another latitude seen through the image
+(function(){const c=$('#cover'),lens=$('#lens'),ring=$('#lensRing'),img=$('#lensImg');const alt=['img/aurora-ridge.jpg','img/sf-overhang.jpg','img/cove.jpg'];const lab=['45.27° N · ANOTHER LATITUDE','33.39° N · ANOTHER SHORE','44.88° N · ANOTHER FOREST'];
+  let on=false;c.addEventListener('mousemove',e=>{if(RM)return;const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;lens.style.clipPath=`circle(${on?150:0}px at ${x}px ${y}px)`;ring.style.left=x+'px';ring.style.top=y+'px'});
+  c.addEventListener('mouseenter',()=>{on=true;img.src=alt[cov];ring.dataset.l=lab[cov];ring.style.setProperty('--lr','300px')});
+  c.addEventListener('mouseleave',()=>{on=false;lens.style.clipPath='circle(0px at 50% 50%)';ring.style.setProperty('--lr','0px')});
+  $$('.cidx button').forEach(b=>b.addEventListener('click',()=>{img.src=alt[cov];ring.dataset.l=lab[cov]}));
+})();
+
+// crosshair + coordinate HUD
+const GEO={cover:[33.3879,-118.4163,0,'Issue 01'],contents:[45.5152,-122.6784,50,'Contents'],catalina:[33.3879,-118.4163,0,'Catalina'],trillium:[45.2694,-121.7389,3600,'Trillium Lake'],silverfalls:[44.8784,-122.6531,1200,'Silver Falls'],films:[44.0582,-123.0687,430,'Films'],oregon:[44.0582,-123.0687,430,'Autzen Stadium'],gear:[44.8784,-122.6531,1200,'The kit'],manifesto:[45.5152,-122.6784,50,'Manifesto'],how:[45.5152,-122.6784,50,'The Quest'],issue:[46.1879,-123.8313,20,'In the works'],path:[45.5152,-122.6784,50,'Your path'],quests:[45.5152,-122.6784,50,'The board'],compass:[40,-140,0,'The compass'],print:[45.5152,-122.6784,50,'Print'],join:[45.5152,-122.6784,50,'Join']};
+let hx=innerWidth/2,hy=innerHeight/2,hsec='cover';
+const fmt=(v,p,n)=>Math.abs(v).toFixed(4)+'° '+(v>=0?p:n);
+function hud(){const g=GEO[hsec]||GEO.cover;const lat=g[0]+(.5-hy/innerHeight)*.08,lon=g[1]+(hx/innerWidth-.5)*.12;$('#hudLat').textContent=fmt(lat,'N','S');$('#hudLon').textContent=fmt(lon,'E','W');$('#hudEl').textContent='Elev '+Math.max(0,Math.round(g[2]+(.5-hy/innerHeight)*120)).toLocaleString()+' ft';$('#hudSec').textContent=g[3]}
+if(matchMedia('(hover:hover)').matches&&!RM&&!EMB){document.body.classList.add('cart');addEventListener('mousemove',e=>{hx=e.clientX;hy=e.clientY;$('#hairH').style.transform=`translateY(${hy}px)`;$('#hairV').style.transform=`translateX(${hx}px)`;hud()})}
+addEventListener('scroll',()=>{let cur='cover';ids.forEach(id=>{if(document.getElementById(id).getBoundingClientRect().top<innerHeight*.5)cur=id});if(cur!==hsec){hsec=cur;hud();if(EMB)toGame({t:'chapter',id:cur})}},{passive:true});hud();
+
+// radar sweep on the compass: pins ping as the beam passes
+(function(){const mb=$('#mapbox');const rad=document.createElement('div');rad.className='radar';mb.prepend(rad);
+  const rings=`<svg class="rings" viewBox="0 0 1000 560" preserveAspectRatio="none"><g fill="none" stroke="#F3F1EC" stroke-opacity=".08">${[90,180,270,360,450,540,630].map(r=>`<ellipse cx="870" cy="476" rx="${r}" ry="${r*.56}"/>`).join('')}<path d="M870 0V560M0 476H1000"/></g></svg>`;mb.insertAdjacentHTML('afterbegin',rings);
+  let a=0,vis=false;new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(mb);
+  function tick(){requestAnimationFrame(tick);if(!vis||RM)return;a=(a+.9)%360;rad.style.setProperty('--a',a+'deg');
+    $$('.pin').forEach(p=>{const k=p.dataset.place,pl=PLACES[k];const ang=(Math.atan2((pl.x-870),-(pl.y-476)*1.78)*180/Math.PI+360)%360;const d=(a-ang+360)%360;const was=p.classList.contains('ping');p.classList.toggle('ping',d<14);if(!was&&d<14&&SND.on)SND.tick(1760)})}
+  tick()})();
+
+/* ===== GEAR ===== */
+const LOOKS={
+  falls:{n:'Silver Falls',img:'img/sf-cafe-2.jpg',ar:'16/9',items:[
+    {t:'Washed denim bucket hat',k:'Headwear',x:48.5,y:35,d:'Soft, faded denim with a stitched front badge and a side tab. It keeps the spray off without a hood.',f:[['Material','Washed cotton denim'],['Detail','Front patch, side tab'],['Maker','Credit TBC']]},
+    {t:'Sage fisherman knit',k:'Knitwear',x:46,y:52,d:'An oversized rib-knit crew in muted sage. Warm under the falls and roomy enough to move in.',f:[['Material','Chunky rib knit'],['Fit','Oversized, dropped shoulder'],['Maker','Credit TBC']]},
+    {t:'Olive quilted liner pants',k:'Trousers',x:48,y:70,d:'Onion-quilted liner pants in olive, borrowed from military kit. They also turn up at Autzen.',f:[['Material','Quilted nylon shell'],['Fit','Relaxed, cropped'],['Maker','Credit TBC']]},
+    {t:'Grey trail runners',k:'Footwear',x:51,y:84,d:'Grey and blue runners with real grip, needed on the wet basalt behind South Falls.',f:[['Use','Trail, wet rock'],['Colour','Grey / slate blue'],['Maker','Credit TBC']]}]},
+  oregon:{n:'Autzen',img:'img/oregon-booth.jpg',ar:'3/4',items:[
+    {t:'Laptop rig',k:'Sound',x:33,y:41,d:'The whole set runs from one laptop on the sideline wall, facing the field.',f:[['Role','DJ rig, cues'],['Placement','Sideline wall'],['Maker','Credit TBC']]},
+    {t:'Olive quilted liner pants',k:'Trousers',x:20,y:93,d:'The same quilted olive from Silver Falls, this time for a day on the concrete.',f:[['Material','Quilted nylon shell'],['Maker','Credit TBC']]},
+    {t:'White low-top sneakers',k:'Footwear',x:42,y:90,d:'Clean white low-tops for the sideline. Easy to move in, easy to spot.',f:[['Colour','White / grey'],['Maker','Credit TBC']]},
+    {t:'Field bag',k:'Carry',x:4,y:86,d:'A soft carryall for cables, chargers and a spare battery.',f:[['Use','Cables, power'],['Maker','Credit TBC']]}]},
+  catalina:{n:'Catalina',img:'img/spear-ready.jpg',ar:'2/3',items:[
+    {t:'Open-cell freediving wetsuit',k:'Wetsuit',x:44,y:47,d:'A two-piece black suit with an integrated hood option. It keeps you warm through long breath-holds in Catalina kelp.',f:[['Use','Freediving, spearfishing'],['Colour','Black'],['Maker','Credit TBC']]},
+    {t:'Speargun with reel',k:'Equipment',x:76,y:54,d:'A wooden-stock gun with a line reel at the muzzle. Check the regulations before every dive.',f:[['Stock','Wood'],['Reel','Front-mounted'],['Maker','Credit TBC']]},
+    {t:'Weight belt',k:'Equipment',x:57,y:61,d:'A rubber belt with lead, to settle at neutral depth.',f:[['Use','Buoyancy'],['Maker','Credit TBC']]},
+    {t:'Mesh catch bag',k:'Carry',x:24,y:88,d:'Open mesh that drains fast. Same day, same boat, straight to ceviche.',f:[['Use','Catch, gear'],['Maker','Credit TBC']]}]},
+  trillium:{n:'Trillium',img:'img/night-portrait.jpg',ar:'2/3',items:[
+    {t:'Digital camo jacket',k:'Outerwear',x:30,y:80,d:'A pixel-camo shell that disappears into the treeline after dark and catches colour under the aurora.',f:[['Pattern','Digital camo'],['Use','Night shoot, wind'],['Maker','Credit TBC']]}]}
+};
+let look='falls',gsel=0;
+function renderGear(){const L=LOOKS[look];
+  $('#looks').innerHTML=Object.entries(LOOKS).map(([k,v])=>`<button data-look="${k}" class="${k===look?'on':''}">${v.n}</button>`).join('');
+  $('#gearFig').style.aspectRatio=L.ar;
+  $('#gearFig').innerHTML=`<img src="${L.img}" alt="Gear look: ${L.n}">`+L.items.map((it,i)=>`<button class="hs ${i===gsel?'on':''}" data-gi="${i}" style="left:${it.x}%;top:${it.y}%" aria-label="${it.t}"><i></i><b>${String(i+1).padStart(2,'0')} · ${it.k}</b></button>`).join('');
+  $('#gearList').innerHTML=L.items.map((it,i)=>`<div class="gi ${i===gsel?'on':''}" data-gi="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${it.t}</span><span class="k">${it.k}</span><div class="d"><p>${it.d}</p><dl>${it.f.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div></div>`).join('')}
+function gpick(i){gsel=i;$$('#gearFig .hs').forEach((h,j)=>h.classList.toggle('on',j===i));$$('#gearList .gi').forEach((g,j)=>g.classList.toggle('on',j===i));SND.tick()}
+$('#looks').addEventListener('click',e=>{const b=e.target.closest('[data-look]');if(!b)return;look=b.dataset.look;gsel=0;renderGear();SND.tick()});
+document.addEventListener('click',e=>{const g=e.target.closest('#gearFig .hs,#gearList .gi');if(g)gpick(+g.dataset.gi)});
+$('#gearFig').addEventListener('mouseover',e=>{const g=e.target.closest('.hs');if(g&&+g.dataset.gi!==gsel)gpick(+g.dataset.gi)});
+renderGear();
+
+/* ===== SOUNDSCAPE (generated live with Web Audio, no files) ===== */
+const SND=(()=>{let ctx,master,on=false,layers={},scene=null,beatT=null,birdT=null;
+  const SCENES={cover:{n:'Open water',pad:.5,ocean:.5},contents:{n:'Studio',pad:.6},catalina:{n:'Pacific swell',pad:.35,ocean:1},trillium:{n:'High-country wind',pad:.55,wind:.9,shimmer:.7},silverfalls:{n:'South Falls',pad:.25,falls:.9,birds:1},oregon:{n:'Sideline, Autzen',pad:.2,beat:1,crowd:.5},films:{n:'Screening room',pad:.4,beat:.35},gear:{n:'Fitting room',pad:.55},manifesto:{n:'Studio',pad:.6},how:{n:'Studio',pad:.5},issue:{n:'Studio',pad:.5},path:{n:'Studio',pad:.5},quests:{n:'The board',pad:.5},compass:{n:'Radar',pad:.4,ocean:.25},print:{n:'Press',pad:.5},join:{n:'Open water',pad:.5,ocean:.4}};
+  function noiseBuf(type){const len=ctx.sampleRate*4,b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);let l=0,b0=0,b1=0,b2=0;
+    for(let i=0;i<len;i++){const w=Math.random()*2-1;if(type==='brown'){l=(l+.02*w)/1.02;d[i]=l*3.5}else{b0=.997*b0+w*.029;b1=.985*b1+w*.032;b2=.95*b2+w*.048;d[i]=(b0+b1+b2+w*.1)*.5}}return b}
+  function src(buf){const s=ctx.createBufferSource();s.buffer=buf;s.loop=true;s.start();return s}
+  function lfo(freq,depth,target,offset=0){const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=freq;g.gain.value=depth;o.connect(g).connect(target);o.start();if(offset)target.value=offset;return o}
+  function bus(){const g=ctx.createGain();g.gain.value=0;g.connect(master);return g}
+  function build(){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=0;
+    const comp=ctx.createDynamicsCompressor();master.connect(comp).connect(ctx.destination);
+    const pink=noiseBuf('pink'),brown=noiseBuf('brown');
+    // pad: A minor add9, drifting
+    layers.pad=bus();const pf=ctx.createBiquadFilter();pf.type='lowpass';pf.frequency.value=900;pf.Q.value=.3;pf.connect(layers.pad);lfo(.05,400,pf.frequency);
+    [110,164.81,220,246.94,329.63].forEach((f,i)=>{['sine','triangle'].forEach((t,j)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type=t;o.frequency.value=f*(j?1.003:1);g.gain.value=(j?.018:.03)/(1+i*.3);lfo(.07+i*.02,.6,g.gain,0);g.gain.value=(j?.018:.03)/(1+i*.3);o.connect(g).connect(pf);o.start()})});
+    // ocean: swells
+    layers.ocean=bus();{const s=src(brown),f=ctx.createBiquadFilter(),g=ctx.createGain();f.type='lowpass';f.frequency.value=500;g.gain.value=.5;lfo(.09,.45,g.gain);lfo(.09,300,f.frequency);s.connect(f).connect(g).connect(layers.ocean)}
+    // wind
+    layers.wind=bus();{const s=src(pink),f=ctx.createBiquadFilter(),g=ctx.createGain();f.type='bandpass';f.Q.value=1.2;f.frequency.value=700;lfo(.06,450,f.frequency);g.gain.value=.35;lfo(.13,.2,g.gain);s.connect(f).connect(g).connect(layers.wind)}
+    // shimmer: high fifths with slow tremolo
+    layers.shimmer=bus();[880,1318.5,1760].forEach((fq,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=fq;g.gain.value=.006;lfo(.2+i*.07,.006,g.gain);o.connect(g).connect(layers.shimmer);o.start()});
+    // falls: dense broadband
+    layers.falls=bus();{const s=src(pink),hp=ctx.createBiquadFilter(),lp=ctx.createBiquadFilter(),g=ctx.createGain();hp.type='highpass';hp.frequency.value=350;lp.type='lowpass';lp.frequency.value=5200;g.gain.value=.45;s.connect(hp).connect(lp).connect(g).connect(layers.falls)}
+    // crowd murmur
+    layers.crowd=bus();{const s=src(pink),f=ctx.createBiquadFilter(),g=ctx.createGain();f.type='bandpass';f.frequency.value=480;f.Q.value=.6;g.gain.value=.25;lfo(.3,.08,g.gain);s.connect(f).connect(g).connect(layers.crowd)}
+    layers.birds=bus();layers.beat=bus();
+    const beatLP=ctx.createBiquadFilter();beatLP.type='lowpass';beatLP.frequency.value=320;beatLP.connect(layers.beat);
+    // a beat heard from across the field: muffled kick + soft hat
+    let step=0;beatT=setInterval(()=>{if(!on)return;const t=ctx.currentTime+.05;
+      if(step%4===0||step%4===2&&step%16===14){const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.setValueAtTime(120,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.35);o.connect(g).connect(beatLP);o.start(t);o.stop(t+.4)}
+      if(step%4===2){const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=pink;f.type='highpass';f.frequency.value=7000;g.gain.setValueAtTime(.12,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);s.connect(f).connect(g).connect(layers.beat);s.start(t,Math.random()*3);s.stop(t+.08)}
+      step++},60000/92/2);
+    // birds: sparse FM chirps
+    birdT=setInterval(()=>{if(!on||Math.random()<.45)return;const t=ctx.currentTime+.02,n=2+Math.random()*4|0,base=2400+Math.random()*1800;
+      for(let i=0;i<n;i++){const o=ctx.createOscillator(),g=ctx.createGain(),tt=t+i*.11;o.type='sine';o.frequency.setValueAtTime(base,tt);o.frequency.exponentialRampToValueAtTime(base*(1.3+Math.random()*.4),tt+.07);g.gain.setValueAtTime(0,tt);g.gain.linearRampToValueAtTime(.05,tt+.01);g.gain.exponentialRampToValueAtTime(.001,tt+.09);o.connect(g).connect(layers.birds);o.start(tt);o.stop(tt+.1)}},1300)}
+  function set(name){scene=name;const sc=SCENES[name]||SCENES.contents;$('#sceneName').textContent=sc.n;if(!ctx)return;const t=ctx.currentTime;
+    Object.entries(layers).forEach(([k,g])=>{g.gain.cancelScheduledValues(t);g.gain.setTargetAtTime(sc[k]||0,t,1.2)})}
+  function toggle(force){if(EMB)return;const want=force!==undefined?force:!on;if(want&&!ctx)build();if(!ctx)return;on=want;if(on)ctx.resume();
+    master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(on?.55:0,ctx.currentTime,.6);
+    $('#sndBtn').classList.toggle('on',on);$('#sndBtn').setAttribute('aria-pressed',on);$('#sndLbl').textContent=on?'Sound on':'Sound';$('#scene').classList.toggle('on',on);try{localStorage.setItem('quest3.snd',on?'1':'0')}catch(e){}
+    set(scene||'cover')}
+  function tick(f=1320){if(!on||!ctx)return;const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+.005);g.gain.exponentialRampToValueAtTime(.001,t+.35);o.connect(g).connect(master);o.start(t);o.stop(t+.4)}
+  function chord(){if(!on||!ctx)return;[660,880,1320].forEach((f,i)=>setTimeout(()=>tick(f),i*90))}
+  return {toggle,set,tick,chord,get on(){return on}}})();
+$('#sndBtn').addEventListener('click',()=>SND.toggle());
+$('#enterSound').addEventListener('click',()=>{SND.toggle(true);$('#contents').scrollIntoView({behavior:RM?'auto':'smooth'})});
+addEventListener('scroll',()=>{let cur='cover';ids.forEach(id=>{if(document.getElementById(id).getBoundingClientRect().top<innerHeight*.5)cur=id});if(cur!==SND._s){SND._s=cur;SND.set(cur)}},{passive:true});SND.set('cover');
+document.addEventListener('click',e=>{if(e.target.closest('.btn,[data-toggle],.looks button,.cidx button,.filters button,.pathcard,.step'))SND.tick(e.target.closest('[data-qa]')?990:1320)},true);
+
+renderPaths();applyPath();renderFilters();renderQuests();renderMap();selectPlace('catalina');updatePts();maniTick();
+})();
+</script>
+</body>
+</html>
