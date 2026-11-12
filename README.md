@@ -2,13 +2,32 @@
 
 Read it. Then go and live it.
 
-A static site: no build step, no dependencies, no server code. Open it through any web server.
+A static site: no build step, no dependencies. Live at https://questmagazine.netlify.app, deployed by Netlify from the `main` branch of this repository.
+
+## Run it locally
+
+Double-click **Start QUEST.command** in Finder. It starts the server and opens the site; close the Terminal window to stop it. (The first time, macOS may ask you to confirm: right-click → Open.)
+
+Or from a terminal in this folder:
 
 ```bash
-ruby -run -e httpd . -p 8766
+ruby scripts/serve.rb
 ```
 
-Then visit `http://localhost:8766`. (Opening `index.html` directly from disk also works.)
+Then visit `http://localhost:8766`. Uses the Ruby that ships with macOS, so there is nothing to install.
+
+- **Edit and reload.** The server never caches, so a reload always shows your latest change.
+- **Another port:** `ruby scripts/serve.rb 9000`
+- **On your phone:** `HOST=0.0.0.0 ruby scripts/serve.rb` prints an address to open on any device on the same Wi-Fi. Hidden files such as `.git` are never served.
+- **Start fresh as a first-time visitor:** in the browser console run `localStorage.clear()` and reload. The explorer and journal live in the browser, not on the server.
+
+## Publish a change
+
+Commit and push to `main`; Netlify redeploys in about a minute.
+
+```bash
+git add -A && git commit -m "Describe the change" && git push
+```
 
 ## Where things live
 
