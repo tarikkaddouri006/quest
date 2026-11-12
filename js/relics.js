@@ -1,0 +1,33 @@
+/* QUEST · js/relics.js — the glyphs, drawn after the Quest graphics sheet. Index = `relic` in quests.js, `mark` in world.js. */
+window.QUEST = window.QUEST || {};
+(function (Q) {
+Q.RELIC=[
+ ()=>{let s='';for(let i=0;i<6;i++){s+=`<rect x="${8+i*14}" y="${i%2?50:36}" width="12" height="12"/>`}for(let i=0;i<6;i++){s+=`<rect x="${8+i*14}" y="${i%2?36:50}" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.2"/>`}return `<g fill="currentColor">${s}</g>`},
+ ()=>{let s='';for(let i=0;i<6;i++)s+=`<circle cx="${12+i*15.2}" cy="${i%2?58:42}" r="6.5"/>`;return `<g fill="currentColor">${s}</g><path d="M6 72H94" stroke="currentColor" stroke-width="1"/>`},
+ ()=>`<g fill="none" stroke="currentColor"><ellipse cx="50" cy="44" rx="44" ry="13" stroke-width="5"/><ellipse cx="50" cy="56" rx="44" ry="13" stroke-width="5"/><ellipse cx="50" cy="50" rx="44" ry="13" stroke-width="1"/></g>`,
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="4"><ellipse cx="50" cy="50" rx="44" ry="15" transform="rotate(24 50 50)"/><ellipse cx="50" cy="50" rx="44" ry="15" transform="rotate(-24 50 50)"/></g><circle cx="50" cy="50" r="4" fill="currentColor"/>`,
+ ()=>{let s='';for(let i=0;i<14;i++)s+=`<path transform="rotate(${i*360/14} 50 50)" d="M50 50Q62 30 50 6Q58 30 50 50Z"/>`;return `<g fill="currentColor">${s}</g><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="1"/>`},
+ ()=>`<path d="M62 8A42 42 0 1 0 92 62 32 32 0 1 1 62 8Z" fill="currentColor"/><path transform="translate(14 54) scale(.3)" d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z" fill="currentColor"/>`,
+ ()=>`<g fill="none" stroke="currentColor"><path d="M6 50Q50 10 94 50Q50 90 6 50Z" stroke-width="3"/><circle cx="50" cy="50" r="15" stroke-width="2"/></g><circle cx="50" cy="50" r="7" fill="currentColor"/>`,
+ ()=>{let s='';for(let i=0;i<8;i++)s+=`<ellipse cx="50" cy="26" rx="8" ry="22" transform="rotate(${i*45} 50 50)"/>`;return `<g fill="currentColor">${s}</g><circle cx="50" cy="50" r="9" fill="var(--ink,#121212)"/>`},
+ ()=>{let s='';for(let i=0;i<4;i++)s+=`<path transform="rotate(${45+i*90} 50 50)" d="M50 50Q62 28 50 4Q38 28 50 50Z"/>`;return `<g fill="currentColor">${s}</g>`},
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="50" cy="50" r="44"/><ellipse cx="50" cy="50" rx="22" ry="44"/><path d="M6 50H94M50 6V94M12 30H88M12 70H88"/></g><circle cx="50" cy="50" r="5" fill="currentColor"/><circle cx="30" cy="50" r="3" fill="currentColor"/><circle cx="70" cy="50" r="3" fill="currentColor"/>`,
+ ()=>{let s='';for(let i=0;i<18;i++)s+=`<path transform="rotate(${i*20} 50 50)" d="M48 6L52 6L51 26L49 26Z"/>`;return `<g fill="currentColor">${s}<circle cx="50" cy="50" r="12"/></g><circle cx="50" cy="50" r="24" fill="none" stroke="currentColor" stroke-width="3"/>`},
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="1.3">${[0,1,2,3,4,5].map(i=>`<ellipse cx="50" cy="${30+i*8}" rx="${44-Math.abs(i-2.5)*4}" ry="9"/>`).join('')}<path d="M44 30Q50 50 44 70M56 30Q50 50 56 70"/></g>`,
+ ()=>{let s='';for(let i=0;i<=8;i++){let a='',b='';for(let j=0;j<=8;j++){const x=8+i*10.5+Math.sin(j*.9+i*.4)*3,y=8+j*10.5;a+=(j?'L':'M')+x.toFixed(1)+' '+y;const x2=8+j*10.5,y2=8+i*10.5+Math.sin(j*.7+i)*3;b+=(j?'L':'M')+x2+' '+y2.toFixed(1)}s+=`<path d="${a}"/><path d="${b}"/>`}return `<g fill="none" stroke="currentColor" stroke-width="1">${s}</g>`},
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="50" cy="50" r="30"/><path d="M50 4V96M4 50H96"/></g><path d="M50 22L56 50L50 78L44 50Z" fill="currentColor"/><path d="M22 50L50 44L78 50L50 56Z" fill="currentColor" opacity=".55"/><circle cx="50" cy="12" r="4" fill="currentColor"/><circle cx="88" cy="50" r="4" fill="currentColor"/>`,
+ ()=>`<g fill="currentColor"><path transform="translate(8 8) scale(.5)" d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z"/><path transform="translate(58 50) scale(.34)" d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z"/><path transform="translate(60 12) scale(.2)" d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z"/></g>`,
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="50" cy="50" r="44"/><ellipse cx="50" cy="50" rx="22" ry="44"/><ellipse cx="50" cy="50" rx="38" ry="44"/><path d="M50 6V94M8 34H92M8 66H92M6 50H94"/></g>`,
+ ()=>`<g fill="none" stroke="currentColor"><ellipse cx="48" cy="54" rx="42" ry="14" stroke-width="4"/><ellipse cx="52" cy="50" rx="38" ry="10" stroke-width="1.5"/></g><path transform="translate(68 12) scale(.26)" d="M50 0C52.5 34 66 47.5 100 50 66 52.5 52.5 66 50 100 47.5 66 34 52.5 0 50 34 47.5 47.5 34 50 0Z" fill="currentColor"/>`
+];
+Q.RELIC.push(()=>`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">${[0,1,2,3].map(i=>`<path d="M8 ${30+i*14}Q22 ${20+i*14} 36 ${30+i*14}T64 ${30+i*14}T92 ${30+i*14}"/>`).join('')}</g><circle cx="50" cy="12" r="6" fill="currentColor"/>`,
+ ()=>`<g fill="none" stroke="currentColor"><path d="M50 92Q14 70 18 34Q30 8 50 8Q70 8 82 34Q86 70 50 92Z" stroke-width="3"/>${[0,1,2,3,4].map(i=>`<path d="M50 90L${22+i*14} 18" stroke-width="1.2"/>`).join('')}</g>`);
+Q.RELIC.push(
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="2"><path d="M50 6V94"/><circle cx="50" cy="30" r="9"/><circle cx="50" cy="62" r="14"/></g><circle cx="50" cy="62" r="5" fill="currentColor"/>`,
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 70H94M10 70Q50 14 90 70"/>${[22,36,50,64,78].map(x=>`<path d="M${x} 70V${70-Math.sin((x-10)/80*Math.PI)*44}"/>`).join('')}</g>`,
+ ()=>`<g fill="currentColor">${[0,1,2,3,4].map(i=>`<circle cx="${20+i*15}" cy="${30+(i%2)*40}" r="${4+i}"/>`).join('')}</g><path d="M14 50H86" stroke="currentColor"/>`,
+ ()=>`<path d="M8 88Q8 20 50 20Q92 20 92 88" fill="none" stroke="currentColor" stroke-width="5"/><path d="M26 88Q26 40 50 40Q74 40 74 88" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="50" cy="70" r="4" fill="currentColor"/>`,
+ ()=>`<path d="M50 8C66 32 76 48 70 66C66 80 56 90 50 90C44 90 34 80 30 66C24 48 34 32 50 8Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M50 40C58 54 60 62 56 72C54 78 46 78 44 72C40 62 42 54 50 40Z" fill="currentColor"/>`,
+ ()=>`<g fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 78L36 36L52 58L66 40L90 78Z"/><path d="M4 86H96"/></g><circle cx="74" cy="20" r="6" fill="currentColor"/>`);
+Q.relicSVG=i=>`<svg viewBox="0 0 100 100" aria-hidden="true">${Q.RELIC[i%Q.RELIC.length]()}</svg>`;
+})(window.QUEST);
