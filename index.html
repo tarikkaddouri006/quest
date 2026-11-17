@@ -440,6 +440,14 @@ img.px,canvas.px{image-rendering:pixelated;image-rendering:crisp-edges}
 /* GUIDEBOOK */
 #book{position:fixed;inset:0;z-index:40;display:grid;grid-template-columns:250px 1fr;background:rgba(14,14,14,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
 #book.open{opacity:1;visibility:visible}
+@media(min-width:1001px){
+ #book{left:auto;width:min(1240px,82vw);grid-template-columns:210px minmax(0,1fr);transform:translateX(40px);transition:opacity .6s,visibility .6s,transform .8s var(--ease);border-left:1px solid var(--line);box-shadow:-40px 0 80px rgba(0,0,0,.45);background:rgba(14,14,14,.97)}
+ #book.open{transform:none}
+ #book .spread{padding:30px 34px 48px;gap:36px}
+ #book .bl .ov{left:32px;right:32px;gap:32px}
+ #book .bl .ov .h1{font-size:clamp(48px,5.4vw,96px)}
+ #book .ix-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+}
 .rail{border-right:1px solid var(--line);padding:24px 18px 20px;overflow-y:auto;display:flex;flex-direction:column}
 .rail .brand{font-family:var(--display);font-size:22px;letter-spacing:.3em;padding-left:2px}
 .rail .bsub{margin:8px 0 26px;color:var(--grey)}
@@ -682,7 +690,7 @@ img.px,canvas.px{image-rendering:pixelated;image-rendering:crisp-edges}
 <div class="hud" id="logo">QUEST</div>
 <div class="hud" id="tools">
   <button class="tool" data-about><span class="tl">About</span><kbd>A</kbd></button>
-  <button class="tool" data-open="book"><svg class="g"><use href="#spark"/></svg><span class="tl">Guide · read</span><kbd>B</kbd></button>
+  <button class="tool" data-open="book"><svg class="g"><use href="#spark"/></svg><span class="tl">Guide</span><kbd>B</kbd></button>
   <button class="tool" data-open="log"><span class="tl">Quest log</span><span class="badge" id="logBadge" hidden>0</span><kbd>Q</kbd></button>
   <button class="tool" data-open="cast"><span class="tl">Lookbook</span><span class="badge" id="invBadge" hidden>0</span><kbd>I</kbd></button>
   <button class="tool" data-open="ex"><span class="dot" id="onDot" style="background:var(--grey)"></span><span class="tl">Explorers</span><span id="onCount" class="muted">1</span></button>
@@ -755,6 +763,8 @@ const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const KEY='quest.game.v1';
 const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
 let S=load();
+const STARTER=['whiteshirt','knit','trousers','lowtops','runners','beanie'];
+if(S&&!S.starter){S.inv=S.inv||[];STARTER.forEach(i=>S.inv.includes(i)||S.inv.push(i));S.equip=S.equip||{};if(!S.equip.Body)S.equip.Body='whiteshirt';if(!S.equip.Legs)S.equip.Legs='trousers';if(!S.equip.Feet)S.equip.Feet='lowtops';S.starter=true;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const spark=n=>`<span class="rating" aria-label="${n} of 3">${Array.from({length:n},()=>'<svg viewBox="0 0 100 100"><use href="#spark"/></svg>').join('')}</span>`;
 
@@ -802,7 +812,7 @@ const ITEMS={
   cooler:{t:'Hard-side cooler',slot:'Tool',r:2,st:{CRF:1,END:1},look:'coast',x:61,y:73,d:'Ice for the catch on the walk back to the fire. Shellfish go on ice straight from the rock.',f:'Hard-side · Bone'},
   skillet:{t:'Octagonal cast-iron skillet',slot:'Tool',r:3,st:{CRF:3},look:null,d:'Handled cast iron that goes straight onto beach coals. Mussels, seaweed, lemon, done.',f:'Cast iron · Coil handles'},
   blazer:{t:'Black tailored jacket',slot:'Body',r:3,st:{STY:3},look:'shanghai',x:44,y:47,life:'tbc',d:'Single-breasted, soft shoulder, worn open over a white shirt. Built for a city at dawn.',f:'Wool blend · Black'},
-  whiteshirt:{t:'White camp-collar shirt',slot:'Body',r:1,st:{STY:1},look:'shanghai',x:52,y:38,life:'tbc',d:'Crisp white, open collar, no tie. The base of every Shanghai look.',f:'Cotton poplin · White'},
+  whiteshirt:{t:'White camp-collar shirt',slot:'Body',r:1,st:{STY:1},look:'shanghai',x:50,y:60,life:'tbc',d:'Crisp white, open collar, no tie. The base of every Shanghai look.',f:'Cotton poplin · White'},
   trousers:{t:'Black wide trousers',slot:'Legs',r:2,st:{STY:2},look:'shanghai',x:38,y:70,life:'tbc',d:'High rise, wide leg, a clean break over the shoe.',f:'Wool blend · Black'},
   yellowsneak:{t:'Yellow court sneakers',slot:'Feet',r:2,st:{STY:1,END:1},look:'shanghai',x:6,y:97,life:'tbc',d:'The single hit of colour against black and white.',f:'Leather · Yellow'},
   campuffer:{t:'Camo down hoodie',slot:'Body',r:3,st:{END:3},look:'troutlake',x:51,y:52,life:'tbc',d:'Packable down in a woodland camo, hood up for the forest and the cave.',f:'Down fill · Woodland camo'},
@@ -969,7 +979,7 @@ const SKILLS={dive:'Freediving',sea:'Seamanship',forage:'Foraging',fire:'Fire & 
 const QSK={'q-catalina':{dive:3,trail:2},'q-sail':{sea:3,nav:1},'q-ceviche':{forage:2,fire:1},'q-tct':{trail:3,nav:2},'q-cove':{nav:1},'q-lights':{night:3,nav:1},'q-wear':{night:1,style:2},'q-falls':{trail:2},'q-tenfalls':{trail:3},'q-curtain':{trail:1},'q-culture':{sound:3},'q-sideline':{sound:2},'q-dawn':{trail:1},'q-forage':{forage:3},'q-beachfire':{fire:3,forage:1},'q-swing':{trail:1},'q-make':{craft:3},'q-tokyo':{nav:2,forage:1},'q-bund':{nav:2,style:2},'q-bridge':{nav:2},'q-night':{nav:1,style:1,sound:1},'q-cave':{nav:3,trail:1},'q-cabin':{fire:2,craft:1},'q-creek':{trail:1},'q-secret':{nav:3}};
 const skStr=q=>Object.entries(QSK[q.id]||{}).map(([k,v])=>SKILLS[k]+' +'+v).join(' · ');
 /* ============ STATE ============ */
-function fresh(name,cls,look){return{v:2,name,cls,look,xp:0,zone:'portland',acc:{},done:[],inv:[],equip:{},seenInv:0,secret:false,created:Date.now()}}
+function fresh(name,cls,look){return{v:2,name,cls,look,xp:0,zone:'portland',acc:{},done:[],inv:[...STARTER],equip:{Body:'whiteshirt',Legs:'trousers',Feet:'lowtops'},starter:true,seenInv:0,secret:false,created:Date.now()}}
 if(S&&!S.look)S.look={skin:1,hair:0,hc:0};
 const lvl=()=>S?lvOf(S.xp):1;
 const unlocked=z=>lvl()>=ZONES[z].lv;
@@ -1370,7 +1380,7 @@ document.addEventListener('click',e=>{const t=e.target;
   if(t.closest('[data-closerew]')){const g=t.closest('[data-go]');$('#rewM').classList.remove('open');if(pendingLevel)setTimeout(showLevel,500);if(g)openBook(g.dataset.go,0);return}
   if(t.closest('[data-castopen]')){$('#rewM').classList.remove('open');openCast();if(pendingLevel)setTimeout(showLevel,600);return}
   if(t.closest('[data-close]')){const d=t.closest('.drawer,#book,#cast');if(!d)return;if(d.id==='book')closeBook();else if(d.id==='cast')$('#cast').classList.remove('open');else closeDrawers();return}
-  const o=t.closest('[data-open]');if(o){SND.tick();const w=o.dataset.open;if(w==='book')$('#book').classList.contains('open')?closeBook():openBook(B.ch||chIdx(S.zone),B.ch?B.sp:0);else if(w==='log'){$('#logD').classList.contains('open')?closeDrawers():(renderLog(),openD('logD'))}else if(w==='cast')openCast();else if(w==='ex'){$('#exD').classList.contains('open')?closeDrawers():(renderEx(),openD('exD'))}return}
+  const o=t.closest('[data-open]');if(o){SND.tick();const w=o.dataset.open;if(w==='book')$('#book').classList.contains('open')?closeBook():openBook(B.ch||'index',B.ch?B.sp:0);else if(w==='log'){$('#logD').classList.contains('open')?closeDrawers():(renderLog(),openD('logD'))}else if(w==='cast')openCast();else if(w==='ex'){$('#exD').classList.contains('open')?closeDrawers():(renderEx(),openD('exD'))}return}
   const tr=t.closest('[data-travel]');if(tr){closeBook();travel(tr.dataset.travel);return}
   const ac=t.closest('[data-accept]');if(ac){accept(ac.dataset.accept);return}
   const by=t.closest('[data-buy]');if(by){const id=by.dataset.buy;if((S.qt||0)>=price(id)&&!S.inv.includes(id)){S.qt-=price(id);S.inv.push(id);save();SND.loot();toast('Unlocked · '+ITEMS[id].t);refresh()}return}
