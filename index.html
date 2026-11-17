@@ -155,16 +155,18 @@ a{color:inherit}
 #zoom{left:24px;bottom:56px;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:22px;background:rgba(18,18,18,.78);overflow:hidden}
 #zoom button{width:36px;height:36px;font-family:var(--sans);font-size:15px;color:#cfccc5;transition:background .3s}
 #zoom button:hover{background:var(--bone);color:var(--ink)}
-#feed{right:20px;bottom:20px;width:300px;pointer-events:none}
+#feed{right:20px;bottom:80px;width:300px;pointer-events:none}
+#dock{right:20px;bottom:20px;display:flex;gap:6px;padding:6px;background:rgba(18,18,18,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:999px}
+#dock .tool:hover{background:var(--bone);color:var(--ink)}
 #feed .row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-top:1px solid var(--line);font-family:var(--sans);font-size:12px;line-height:1.45;color:#cfccc5;animation:feedin .8s var(--ease)}
 #feed .row:first-child{border-top:0}
 #feed .row .t{font-size:10px;color:var(--grey);flex:none;width:34px}
 @keyframes feedin{from{opacity:0;transform:translateY(8px)}}
 #feed .fh{display:flex;justify-content:space-between;color:var(--grey);margin-bottom:6px}
 #hint{left:50%;bottom:28px;transform:translateX(-50%);font-style:italic;font-size:17px;color:#cfccc5;text-align:center;transition:opacity .8s;pointer-events:none;max-width:520px}
-#scale{right:340px;bottom:24px;display:flex;align-items:center;gap:10px;color:var(--grey);pointer-events:none}
+#scale{right:400px;bottom:30px;display:flex;align-items:center;gap:10px;color:var(--grey);pointer-events:none}
 #scale i{display:block;height:5px;border:1px solid var(--grey);border-top:0}
-@media(max-width:900px){#logo,#feed,#scale,#coord{display:none}#tools .tool span.tl{display:none}#pcard .xp{width:90px}#tools{top:auto;bottom:16px;right:50%;transform:translateX(50%)}#zoom{bottom:80px}}
+@media(max-width:900px){#logo,#feed,#scale,#coord{display:none}#dock{bottom:72px;right:50%;transform:translateX(50%)}#dock .tool{padding:8px 11px;font-size:9.5px;white-space:nowrap}#dockQt{display:none}#hint{bottom:128px;font-size:14px}#tools .tool span.tl{display:none}#pcard .xp{width:90px}#tools{top:auto;bottom:16px;right:50%;transform:translateX(50%)}#zoom{bottom:80px}}
 
 /* DRAWERS */
 .drawer{position:fixed;top:0;bottom:0;z-index:30;width:min(440px,100vw);background:rgba(18,18,18,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:transform .8s var(--ease);overflow-y:auto;overscroll-behavior:contain}
@@ -699,6 +701,7 @@ img.px,canvas.px{image-rendering:pixelated;image-rendering:crisp-edges}
 <div class="hud" id="zoom"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">−</button><button id="zHome" aria-label="Recentre" style="font-size:11px">◎</button></div>
 <div class="hud lbl" id="coord"><span id="cZone">Quest HQ</span><span><b id="cLat">45.5152° N</b></span><span><b id="cLon">122.6784° W</b></span></div>
 <div class="hud lbl" id="scale"><i id="scaleBar" style="width:80px"></i><span id="scaleTxt">100 mi</span></div>
+<div class="hud" id="dock"><button class="tool" data-go="kit"><span class="tl">Catalog</span></button><button class="tool" data-go="skills"><span class="tl">Skills &amp; Tokens</span><span class="muted" id="dockQt"></span></button><button class="tool" data-go="relics"><span class="tl">Relics</span></button></div>
 <div class="hud" id="feed"><div class="fh lbl"><span>World</span><span id="feedSub">Live</span></div><div id="feedRows"></div></div>
 <div class="hud" id="hint"></div>
 
@@ -1370,7 +1373,7 @@ function renderCast(){const st=stats(),base=CLASSES[S.cls].st;const lookNo=Strin
 function openCast(){S.seenInv=S.inv.length;save();renderCast();$('#cast').classList.add('open');SND.tick()}
 
 /* player card */
-function renderCard(){const l=lvl(),a=LV[l-1],b=LV[l]||LV[l-1]+1000;$('#pName').textContent=S.name;$('#pCls').textContent=CLASSES[S.cls].n;$('#pLv').textContent=l;$('#pXp').style.width=Math.min(100,(S.xp-a)/(b-a)*100)+'%';$('#pAv').innerHTML=pxAvatar(S.look,S.equip,'78 14 84 84',30,30)}
+function renderCard(){const dq=document.getElementById('dockQt');if(dq)dq.textContent=(S.qt||0)+' QT';const l=lvl(),a=LV[l-1],b=LV[l]||LV[l-1]+1000;$('#pName').textContent=S.name;$('#pCls').textContent=CLASSES[S.cls].n;$('#pLv').textContent=l;$('#pXp').style.width=Math.min(100,(S.xp-a)/(b-a)*100)+'%';$('#pAv').innerHTML=pxAvatar(S.look,S.equip,'78 14 84 84',30,30)}
 function refresh(){renderCard();renderZones();renderMe();renderLog();if($('#cast').classList.contains('open'))renderCast();else{const n=S.inv.length-(S.seenInv||0);$('#invBadge').hidden=n<=0;$('#invBadge').textContent=n}if($('#book').classList.contains('open')){const keep=curEl&&curEl.scrollTop;renderBook(0);if(curEl&&keep)curEl.scrollTop=keep}}
 
 /* ============ EVENTS ============ */
