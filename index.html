@@ -342,6 +342,46 @@ a{color:inherit}
 .lq .pb i{flex:1;height:3px;background:rgba(243,241,236,.14);position:relative}.lq .pb i b{position:absolute;inset:0 auto 0 0;background:var(--lime)}
 .lq.done .t{color:#a9a6a0;text-decoration:line-through;text-decoration-color:rgba(243,241,236,.3)}
 .lg-empty{font-family:var(--sans);font-size:14px;color:#bdbab3;padding:14px 0}
+/* fitting room */
+.fit{min-height:100%;display:flex;flex-direction:column;background:#111}
+.fit-top{display:flex;align-items:center;gap:22px;padding:18px 28px;border-bottom:1px solid var(--line)}
+.fit-body{flex:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);min-height:0}
+.fit-stage{position:sticky;top:0;align-self:start;height:calc(100vh - 59px);background:radial-gradient(ellipse at 50% 40%,#f1efea 0%,#e2dfd8 55%,#cfcbc3 100%);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;padding:70px 0 40px}
+.fit-stage::before{content:"";position:absolute;inset:0;opacity:.28;mix-blend-mode:multiply;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.fit-stage::after{content:"";position:absolute;left:30%;right:30%;bottom:34px;height:26px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.35),transparent 70%);filter:blur(4px)}
+.bigno{position:absolute;left:26px;top:22px;font-family:var(--display);font-size:clamp(70px,9vw,150px);line-height:.86;color:transparent;-webkit-text-stroke:1px rgba(20,20,20,.28);letter-spacing:.02em;pointer-events:none}
+.fitfig{position:relative;z-index:2;height:min(74vh,700px);aspect-ratio:240/520}
+.fsvg{width:100%;height:100%;overflow:visible;filter:drop-shadow(16px 6px 0 rgba(0,0,0,.07))}
+.fsvg .hit{fill:transparent;cursor:pointer;stroke:transparent;transition:stroke .3s}
+.fsvg .hit:hover,.fsvg .hit.on{stroke:#BEFF00;stroke-width:1.2;stroke-dasharray:3 3}
+.call{position:absolute;display:flex;align-items:center;gap:10px;color:#141414;text-align:left;white-space:nowrap;cursor:pointer}
+.call i{width:44px;height:1px;background:rgba(20,20,20,.5);position:relative;flex:none}.call i::before{content:"";position:absolute;left:-4px;top:-3.5px;width:8px;height:8px;border-radius:50%;background:#141414}
+.call.l{flex-direction:row-reverse;text-align:right}.call.l i::before{left:auto;right:-4px}
+.call span{font-family:var(--sans);font-size:12px;line-height:1.35;color:#2a2a2a}
+.call b{display:block;font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#141414}
+.call em{font-style:normal;color:#8a867f}
+.call:hover span,.call.on span{color:#000}.call.on i::before{background:#BEFF00;box-shadow:0 0 0 2px #141414}
+.credits{position:absolute;left:26px;bottom:26px;z-index:3;font-family:var(--sans);font-size:12px;color:#2a2a2a;display:grid;gap:5px;max-width:240px}
+.credits .lbl{color:#141414;margin-bottom:4px}.credits em{font-style:normal;color:#8a867f;display:inline-block;width:86px}
+.finish{position:absolute;right:22px;bottom:26px;z-index:3;display:flex;gap:8px}
+.finish button{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.25)}.finish button.on{outline:2px solid #141414;outline-offset:2px}
+.fit-panel{padding:26px 30px 40px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:20px;min-width:0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tabs button{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:#cfccc5;display:flex;gap:8px}
+.tabs button span{color:var(--grey)}.tabs button.on{background:var(--bone);color:var(--ink);border-color:var(--bone)}.tabs button.on span{color:#555}
+.fp-h{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:14px}
+.fp-h .disp{font-size:38px;line-height:1;margin-top:6px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.pc{text-align:left;display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.pc .pi{position:relative;aspect-ratio:4/5;overflow:hidden;background:#1d1d1d;outline:1px solid transparent;transition:outline-color .3s}
+.pc:hover .pi{outline-color:rgba(243,241,236,.6)}.pc.on .pi{outline:2px solid var(--lime)}
+.pc .tag{position:absolute;left:8px;top:8px;background:var(--lime);color:var(--ink);font-family:var(--sans);font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 7px}
+.pc b{font-family:var(--display);font-weight:400;font-size:15px;line-height:1.2;color:var(--bone)}
+.pc small{font-family:var(--sans);font-size:11.5px;color:#a9a6a0}
+.pc.lk .pi{filter:grayscale(1) brightness(.5)}.pc.lk b{color:#8c8a85}
+.fstats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:auto}
+.fstats div{padding:12px 0;font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#a9a6a0}.fstats b{display:block;font-family:var(--display);font-weight:400;font-size:22px;color:var(--bone);letter-spacing:0;margin-top:4px}.fstats b.up{color:var(--lime)}
+@media(max-width:1000px){.fit-body{grid-template-columns:1fr}.fit-stage{position:relative;height:72vh}.fitfig{height:58vh}.call span{font-size:10.5px}.call i{width:22px}.call.l{display:none}.fit-top{gap:12px;padding:14px 16px}.fit-top .lbl.muted{display:none}.fit-panel{padding:20px 16px 40px}.bigno{font-size:64px}.credits{display:none}}
 /* film */
 .filmbox video,.reel video{opacity:0;transition:opacity 1.8s ease;filter:saturate(.72) contrast(1.06)}
 .filmbox video.on,.reel video.on{opacity:1}
@@ -626,7 +666,7 @@ img.px,canvas.px{image-rendering:pixelated;image-rendering:crisp-edges}
 .kc .disp{font-size:13px;line-height:1.15;margin:4px 0 2px}
 @media(max-width:1000px){#book{grid-template-columns:1fr}.rail{display:none}.spread,.spread.r12,.spread.r21{grid-template-columns:1fr;padding:24px 20px}.qgrid,.std,.mani,.steps4,.traits{grid-template-columns:1fr}.trait:nth-child(odd){border-right:0}.trait:nth-child(even){padding-left:0}.btop,.bbot{padding:0 16px}.stack{min-height:0}.fill{min-height:300px}}
 
-@media(max-width:820px){
+@media(max-width:1000px){
  #book{grid-template-columns:minmax(0,1fr)!important}#book>*{min-width:0}.bbody,.btop,.bbot{min-width:0;max-width:100vw}.folio{display:none}
  .spread,.spread.r12,.spread.r21{display:flex!important;flex-direction:column;gap:28px;padding:22px 18px 40px!important}
  .spread>*{flex:none;min-width:0;max-width:100%}
@@ -701,7 +741,7 @@ img.px,canvas.px{image-rendering:pixelated;image-rendering:crisp-edges}
 <div class="hud" id="zoom"><button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">−</button><button id="zHome" aria-label="Recentre" style="font-size:11px">◎</button></div>
 <div class="hud lbl" id="coord"><span id="cZone">Quest HQ</span><span><b id="cLat">45.5152° N</b></span><span><b id="cLon">122.6784° W</b></span></div>
 <div class="hud lbl" id="scale"><i id="scaleBar" style="width:80px"></i><span id="scaleTxt">100 mi</span></div>
-<div class="hud" id="dock"><button class="tool" data-go="kit"><span class="tl">Catalog</span></button><button class="tool" data-go="skills"><span class="tl">Skills &amp; Tokens</span><span class="muted" id="dockQt"></span></button><button class="tool" data-go="relics"><span class="tl">Relics</span></button></div>
+<div class="hud" id="dock"><button class="tool" data-go="kit"><span class="tl">Catalog</span></button><button class="tool" data-go="skills"><span class="tl">Skills</span><span class="muted" id="dockQt"></span></button><button class="tool" data-go="relics"><span class="tl">Relics</span></button></div>
 <div class="hud" id="feed"><div class="fh lbl"><span>World</span><span id="feedSub">Live</span></div><div id="feedRows"></div></div>
 <div class="hud" id="hint"></div>
 
@@ -779,7 +819,7 @@ const CLASSES={
   design:{n:'Design Enthusiast',img:'img/cabin.jpg',copy:'Here for the craft: the tool, the maker, the process behind the object.',st:{CRF:9,STY:6,FOC:5,END:3},bonus:['Design','Culinary'],perk:'+25% XP on Design and Culinary quests'}
 };
 const STATN={END:'Endurance',STY:'Style',CRF:'Craft',FOC:'Focus'};
-const SKINS=['#1a1a1a','#3a3836','#6E6B66','#0c0c0c'],HAIRS=['crop','long','bun'],HCOL=['#17120F','#5A3A22','#C9A26B','#8E8E8E'];
+const SKINS=['#151515','#3a3836','#8a8680','#E9E6DF'],HAIRS=['crop','long','bun'],HCOL=['#17120F','#5A3A22','#C9A26B','#8E8E8E'];
 const LV=[0,150,400,750,1200,1800,2600,3600];
 const lvOf=xp=>{let l=1;LV.forEach((t,i)=>{if(xp>=t)l=i+1});return Math.min(l,LV.length)};
 const RAR=['','Common','Rare','Epic','Legendary'];
@@ -946,7 +986,7 @@ function avatarInner(look,eq,opt={}){
   if(tool==='rig')s+=`<rect x="160" y="214" width="16" height="96" rx="3" fill="#5c5f66" transform="rotate(-8 168 262)"/><circle cx="178" cy="298" r="9.5" fill="${sk}"/>`;
   if(charm){const gi=CHARMGLYPH[charm]??3;s+=`<g transform="translate(166 18) scale(.42)" style="color:#BEFF00">${RELIC[gi]()}</g>`}
   return s}
-const avatarSVG=(look,eq,vb='0 0 240 520')=>`<svg viewBox="${vb}" aria-hidden="true" class="hz"><g filter="url(#haze)">${avatarInner(look,eq)}</g></svg>`;
+const avatarSVG=(look,eq,vb='0 0 240 520')=>`<svg viewBox="${vb}" aria-hidden="true" class="hz">${avatarInner(look,eq)}</svg>`;
 const itemSVG=id=>{const it=ITEMS[id];if(it.slot==='Charm')return `<svg viewBox="0 0 100 100" style="color:#BEFF00;width:60%">${RELIC[CHARMGLYPH[id]??3]()}</svg>`;const e={};e[it.slot]=id;const vbs={Head:'70 10 100 100',Body:'40 100 160 210',Legs:'60 230 120 270',Feet:'70 440 100 70',Tool:'20 120 220 280'};return avatarSVG(S&&S.look,e,vbs[it.slot])};
 
 /* ============ PIXEL ENGINE ============ */
@@ -1195,7 +1235,7 @@ const CHAPTERS=[
    facts:[['Getting there','From Portland, east through the Columbia River Gorge to White Salmon, then north toward Mount Adams.'],['The caves','Lava tubes and ice caves lie in the Gifford Pinchot National Forest near Trout Lake. Check access and seasonal closures with the Forest first.'],['Underground','Two light sources per person, a helmet, and someone who has been before.'],['The mountain','Mount Adams rises to the north. Weather turns fast; pack layers.']],
    standard:['Leave the phone in the car for a day.','Two lights each underground, always.','Cook one pot for the whole cabin.','Leave the forest as you found it.'],srcs:[]},
  {id:'kit',kind:'kit',n:'10',t:'The Catalog'},
- {id:'skills',kind:'skills',n:'00',t:'Skills & Tokens'},
+ {id:'skills',kind:'skills',n:'00',t:'Skills'},
  {id:'relics',kind:'relics',n:'11',t:'Relics'}
 ];
 {let k=0;CHAPTERS.forEach(c=>{c.n=c.kind==='hq'?'HQ':String(k++).padStart(2,'0')})}
@@ -1248,7 +1288,7 @@ function renderSpread(c,kind){
     <div class="col mid"><span class="ch-num">${c.n} — The film</span><div class="h1" style="font-size:clamp(40px,4.4vw,68px)">${esc(e[1])}</div><p class="verdict">${esc(e[2])}</p><dl class="meta"><dt>Runtime</dt><dd>${e[3]}</dd><dt>Footage</dt><dd>From the field, unscripted</dd>${c.film?`<dt>Long form</dt><dd><a href="${c.film[0]}" target="_blank" rel="noopener">${esc(c.film[1])} ↗</a></dd>`:''}</dl><p class="note" style="margin-top:14px">Turning on the film’s sound pauses the soundscape. It comes back when you turn the page.</p><div class="acts"><button class="btn" data-next>Read the story</button></div></div>`}
   case 'linq':return `<div class="col mid" style="align-items:center"><div class="filmbox v"><video src="vid/footwear-reel.mp4" autoplay muted loop playsinline></video><div class="vfc"></div><div class="vfl lbl"><span class="rec"><i></i>LINQ workshop</span><span>0:14</span></div></div></div>
     <div class="col mid"><span class="ch-num">${c.n} — Made by LINQ</span><div class="h1" style="font-size:clamp(40px,4.4vw,68px)">The gear goes where the quest goes</div><p class="verdict">Quest is about going out into the world. LINQ makes what you wear when you get there: footwear molded and finished by hand, tested on the Bund, in the creek at Trout Lake and on the coast.</p><div class="stack2" style="flex-direction:row"><img src="img/fw-hands.jpg" alt="" style="max-height:26vh;width:auto"><img src="img/fw-rows.jpg" alt="" style="max-height:26vh;width:auto"></div><div class="acts"><button class="btn lime" data-next>Open the catalog</button></div></div>`;
-  case 'skills':{const sk=S.skills||{};return `<div class="col mid"><span class="ch-num">${c.n} — Skills & Tokens</span><div class="h1" style="font-size:clamp(40px,4.4vw,68px)">Life quests become real skills</div><p class="verdict">Every quest teaches something you keep: how to read a tide, cook on coals, shoot the night sky, find your way through a city without a map. Skills earn XP. XP earns Quest Tokens. Tokens unlock gear in game now, and in life at launch.</p>
+  case 'skills':{const sk=S.skills||{};return `<div class="col mid"><span class="ch-num">${c.n} — Skills</span><div class="h1" style="font-size:clamp(40px,4.4vw,68px)">Life quests become real skills</div><p class="verdict">Every quest teaches something you keep: how to read a tide, cook on coals, shoot the night sky, find your way through a city without a map. Skills earn XP. XP earns Quest Tokens. Tokens unlock gear in game now, and in life at launch.</p>
     <div class="flow">${['Go','Learn','Level','Earn','Wear'].map((s,i)=>`<div><b>${String(i+1).padStart(2,'0')}</b><span>${s}</span></div>`).join('<i></i>')}</div>
     <dl class="meta" style="margin-top:22px"><dt>Wallet</dt><dd><span class="lime">${S.qt||0} QT</span> · 1 QT per 5 XP</dd><dt>Spend in game</dt><dd>Unlock any piece in the catalog for your casting board</dd><dt>Spend in life</dt><dd>Partner and LINQ redemption opens at launch</dd></dl></div>
     <div class="col mid"><span class="lbl muted">Your skills</span><div class="skl">${Object.entries(SKILLS).map(([k,n])=>`<div><span>${n}</span><span class="bar"><i style="width:${Math.min(100,(sk[k]||0)*10)}%"></i></span><b>${sk[k]||0}</b></div>`).join('')}</div><p class="note" style="margin-top:14px">Each quest lists the skills it trains. Ten points in a skill fills its bar.</p></div>`}
@@ -1350,26 +1390,30 @@ const CARDP={Head:[60,60,'L'],Body:[60,290,'L'],Legs:[60,520,'L'],Charm:[910,60,
 const BOX={Head:[92,26,56,82],Body:[66,112,108,170],Legs:[74,242,92,224],Feet:[82,458,76,42],Tool:[150,200,94,180],Charm:[160,6,50,50]};
 const SLOTLBL={Head:['Headwear','#6F93C6'],Body:['Tops','#BEFF00'],Legs:['Pants','#8C8F43'],Feet:['Footwear','#F3F1EC'],Tool:['Accessories','#E08A1E'],Charm:['Charm','#BEFF00']};
 let lbView='look';
+let CS='Body';
+const HOT={Head:[120,62,'Headwear',[62,10]],Body:[120,180,'Tops',[64,30]],Legs:[120,350,'Pants',[64,62]],Feet:[120,478,'Footwear',[64,90]],Tool:[188,270,'Accessories',[-2,48]]};
 function renderCast(){const st=stats(),base=CLASSES[S.cls].st;const lookNo=String(S.done.length+1).padStart(2,'0');const z=ZONES[S.zone];
-  const bgSrc={catalina:'img/cove.jpg',trillium:'img/aurora-ridge.jpg',silverfalls:'img/sf-overhang.jpg',eugene:'img/oregon-field.jpg',coast:'img/coast-cliff.jpg',portland:'img/bow-dusk.jpg'}[S.zone]||'img/bow-dusk.jpg';
-  const rows=['Body','Legs','Head','Feet','Tool','Charm'].filter(sl=>S.equip[sl]||['Body','Legs','Tool'].includes(sl)).slice(0,4);
-  $('#stage').outerHTML=`<div id="stage" class="lb-wrap"><div class="lb-sheet">
-   <div class="lb-h"><div class="logo2">QUEST<sup>®</sup></div><div style="flex:1"></div><button class="lbl" data-close style="color:#cfccc5">Close · Esc</button></div>
-   <div class="lb-sub"><span>Issue 01 › ${esc(z.n)} › ${esc(S.name)}</span><span style="display:flex;gap:0"><span style="padding:0 18px;border-left:1px solid rgba(243,241,236,.5)">${CLASSES[S.cls].n} · LV ${lvl()}</span><span style="background:var(--lime);color:var(--ink);padding:0 18px">Look ${lookNo}</span></span></div>
-   <div class="lb-body"><div class="lb-win"><div class="os"><div class="bar"><span>Look ${lookNo} · ${esc(S.name)} · Studio, ${esc(z.n)}</span></div>
-     <div class="scene">${pxPhoto(bgSrc,110)}${pxAvatar(S.look,S.equip,'0 0 240 520',96,208,'fig')}
-       <div class="hud2"><span>${z.ll[0].toFixed(4)}° N · ${Math.abs(z.ll[1]).toFixed(4)}° W</span><span>${esc(z.el)}</span></div>
-       <div class="tagr">${Object.values(S.equip).map(id=>`<span>${esc(ITEMS[id].t)}</span>`).join('')||'<span>Base layer · earn the rest in the field</span>'}</div></div>
-     <div class="sw2"><span class="lbl muted" style="padding:6px 4px">Mannequin finish</span>${SKINS.map((c,i)=>`<button data-lskin="${i}" class="${S.look.skin===i?'on':''}" style="background:${c};width:22px;padding:0;height:22px;border-radius:50%"></button>`).join('')}<span class="lbl muted" style="padding:6px 4px 6px 14px">${["Ink","Smoke","Graphite","Void"][S.look.skin]||"Stone"} · faceless, ungendered</span></div></div></div>
-    <div class="lb-col">${rows.map(sl=>{const id=S.equip[sl],it=ITEMS[id];const [nm,col]=SLOTLBL[sl];
-      return `<div class="lb-row"><div class="flat">${it?pxItem(id,150):`<span class="em">—</span>`}</div><div class="info"><span class="d" style="background:${it?col:'transparent'};border:1px solid ${col}"></span><div><b>${nm}</b><small>${it?esc(it.t)+'<br>'+esc(it.f)+' · '+RAR[it.r]:'Earn a piece in the field, then tap it in the wardrobe below.'}</small></div>${it?`<button data-equip="${id}">Remove</button>`:''}</div></div>`}).join('')}</div></div>
-   <div class="lb-strip"><div>Tokens<b class="up">${S.qt||0} QT</b></div>${Object.keys(STATN).map(k=>`<div>${STATN[k]}<b class="${st[k]>base[k]?'up':''}">${st[k]}</b></div>`).join('')}<div>Quests<b>${S.done.length}</b></div><div>XP<b>${S.xp}</b></div></div></div>
-   <div class="qh" style="margin-top:34px"><span class="lbl">Wardrobe · tap to wear</span><span class="lbl muted">${S.inv.length}/${Object.keys(ITEMS).length} collected</span></div>
-   <div class="wgrid2">${Object.keys(ITEMS).map(id=>{const it=ITEMS[id],own=S.inv.includes(id),eq=S.equip[it.slot]===id;return `<button class="wf ${eq?'eqd':''} ${own?'':'lockd'}" ${own?`data-equip="${id}"`:''}><div class="ii">${pxItem(id,112)}</div><div class="ib">${it.slot} · ${RAR[it.r]}<b>${esc(it.t)}</b>${eq?'<span class="lime">Wearing</span>':own?'Wear':'Not yet earned'}</div></button>`}).join('')}</div>
-   <div class="qh" style="margin-top:34px"><span class="lbl">Relics</span><span class="lbl muted">${S.done.length}/${allQ().length}</span></div>
-   <div class="relgrid">${allQ().map(q=>`<div class="relic ${S.done.includes(q.id)?'got':''}">${relicSVG(q.relic)}${esc(q.t)}</div>`).join('')}</div></div>`;
+  const slots=['Body','Legs','Feet','Head','Tool','Charm'];
+  const owned=sl=>Object.keys(ITEMS).filter(id=>ITEMS[id].slot===sl&&S.inv.includes(id));
+  const hint=id=>{const q=allQ().find(q=>(q.loot||[]).includes(id));return q?'Earn on “'+q.t+'”':price(id)+' QT in the catalog'};
+  const fig=`<div class="fitfig"><svg viewBox="0 0 240 520" class="fsvg">${avatarInner(S.look,S.equip)}${Object.entries(HOT).map(([sl,[x,y]])=>`<rect data-cslot="${sl}" class="hit ${CS===sl?'on':''}" x="${sl==='Tool'?160:62}" y="${y-(sl==='Body'?70:sl==='Legs'?90:sl==='Feet'?24:30)}" width="${sl==='Tool'?60:116}" height="${sl==='Body'?140:sl==='Legs'?180:sl==='Feet'?44:60}" rx="6"/>`).join('')}</svg>
+   ${Object.entries(HOT).map(([sl,[x,y,nm,[lx,ly]]])=>{const it=ITEMS[S.equip[sl]];return `<button class="call ${lx<0?'l':''} ${CS===sl?'on':''}" data-cslot="${sl}" style="left:${lx<0?'auto':lx+'%'};${lx<0?'right:102%;':''}top:${ly}%"><i></i><span><b>${nm}</b>${it?esc(it.t):'<em>Empty · tap to dress</em>'}</span></button>`}).join('')}</div>`;
+  const items=Object.keys(ITEMS).filter(id=>ITEMS[id].slot===CS).sort((a,b)=>(S.inv.includes(b)-S.inv.includes(a)));
+  $('#stage').outerHTML=`<div id="stage" class="fit">
+   <div class="fit-top"><div class="logo2">QUEST<sup>®</sup></div><span class="lbl">Fitting room</span><span class="lbl muted">${esc(S.name)} · LV ${lvl()} · ${S.qt||0} QT</span><div style="flex:1"></div><button class="lbl" data-close style="color:#cfccc5">Close · Esc</button></div>
+   <div class="fit-body">
+    <div class="fit-stage"><div class="bigno">LOOK<br>${lookNo}</div>${fig}
+     <div class="credits"><span class="lbl">Look ${lookNo} · Studio, ${esc(z.n)}</span>${['Head','Body','Legs','Feet','Tool','Charm'].filter(sl=>S.equip[sl]).map(sl=>`<div><em>${SLOTLBL[sl][0]}</em>${esc(ITEMS[S.equip[sl]].t)}</div>`).join('')||'<div>Nothing on yet.</div>'}</div>
+     <div class="finish">${SKINS.map((c,i)=>`<button data-lskin="${i}" class="${S.look.skin===i?'on':''}" style="background:${c}" title="${["Ink","Smoke","Stone","Bone"][i]}"></button>`).join('')}</div></div>
+    <div class="fit-panel">
+     <div class="tabs">${slots.map(sl=>`<button data-cslot="${sl}" class="${CS===sl?'on':''}">${SLOTLBL[sl][0]}<span>${owned(sl).length}</span></button>`).join('')}</div>
+     <div class="fp-h"><div><span class="lbl muted">Choose your</span><div class="disp">${SLOTLBL[CS][0]}</div></div>${S.equip[CS]?`<button class="btn sm" data-equip="${S.equip[CS]}">Take it off</button>`:''}</div>
+     <div class="pgrid">${items.map(id=>{const it=ITEMS[id],own=S.inv.includes(id),on=S.equip[CS]===id;return `<button class="pc ${on?'on':''} ${own?'':'lk'}" ${own?`data-equip="${id}"`:`data-go="kit"`}><div class="pi">${prodImg(id)}${on?'<span class="tag">Wearing</span>':''}</div><b>${esc(it.t)}</b><small>${own?(on?'Tap to take off':'Tap to wear'):hint(id)}</small></button>`}).join('')}</div>
+     <div class="fstats">${Object.keys(STATN).map(k=>`<div><span>${STATN[k]}</span><b class="${st[k]>base[k]?'up':''}">${st[k]}</b></div>`).join('')}</div>
+    </div></div></div>`;
   $('#wardrobe').innerHTML='';
   const nNew=S.inv.length-(S.seenInv||0);$('#invBadge').hidden=nNew<=0;$('#invBadge').textContent=nNew}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-cslot]');if(c&&document.getElementById('cast').classList.contains('open')){e.stopPropagation();CS=c.dataset.cslot;SND.tick&&SND.tick();renderCast()}},true);
 function openCast(){S.seenInv=S.inv.length;save();renderCast();$('#cast').classList.add('open');SND.tick()}
 
 /* player card */
